@@ -7,6 +7,7 @@ import 'package:mysundaynotes/widget/widget.dart';
 
 class CustomHttpRequest {
   static Future<dynamic> loadSODData(int limit, int page) async {
+    print("Page no isssssssssssssssssssss$page");
     List<SODModel> allObjectsList = [];
     print("starttttttt");
 
@@ -49,7 +50,7 @@ class CustomHttpRequest {
     var responce = await http.get(Uri.parse(url));
     print("responce status code is ${responce.statusCode} ");
     var elem = json.decode(responce.body);
-    print("All church data areee $elem");
+   // print("All church data areee $elem");
     for (var i in elem) {
       Authors auth = Authors(
           id: i['id'].toString(),

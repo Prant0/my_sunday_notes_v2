@@ -18,6 +18,9 @@ const Color grayClr =Color(0xffe6e7e8);
 const double bodyPadding=16;
 
 
+List boxColors = [yellowLight,blackLight];
+List textColors = [blackDark,yellowDark];
+
 const spinkit = SpinKitRotatingCircle(
 color: yellowDark,
 size: 50.0,

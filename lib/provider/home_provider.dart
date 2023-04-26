@@ -10,8 +10,10 @@ class HomeProvider with ChangeNotifier{
   List<Authors> allChurchList = [];
 
   getSODData(int limit, page)async{
-    allSODData=await CustomHttpRequest.loadSODData(limit, page);
+  //  allSODData=await CustomHttpRequest.loadSODData(limit, page);
+    allSODData.addAll(await CustomHttpRequest.loadSODData(limit, page));
     notifyListeners();
+    print("Total length of all sod is ${allSODData.length}");
   }
 
   getAllChurchData(int limit, page)async{
