@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_html/flutter_html.dart';
 import 'package:mysundaynotes/http_request/custom_http_request.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
 import 'package:mysundaynotes/widget/widget.dart';
@@ -11,13 +12,14 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  int pageNo=1;bool isLoading=false;
+//  int pageNo=1;
+  bool isLoading=false;
 
   loadSODData() async {
     setState(() {
       isLoading=true;
     });
-     await Provider.of<HomeProvider>(context, listen: false).getSODData(15, pageNo);
+     await Provider.of<HomeProvider>(context, listen: false).getSODData(10, );
     setState(() {
       isLoading=false;
     });
@@ -29,7 +31,7 @@ class _HomePageState extends State<HomePage> {
         .getAllChurchData(20, 1);
   }
 
-  final controller = ScrollController();
+  final ScrollController controller = ScrollController();
   @override
   void initState() {
     // TODO: implement initState
@@ -38,10 +40,11 @@ class _HomePageState extends State<HomePage> {
 
     controller.addListener(() {
       if (controller.position.maxScrollExtent == controller.offset) {
-        print("Loadinggggggggggggggggggggggggggggggggg");
-        setState(() {
+
+        Provider.of<HomeProvider>(context,listen: false).incrementSOD();
+        /*setState(() {
           pageNo= pageNo+1;
-        });
+        });*/
         loadSODData();
       }
     });
@@ -242,6 +245,7 @@ class _HomePageState extends State<HomePage> {
                                     SizedBox(
                                       height: 5,
                                     ),
+
                                     Text(
                                         sodData[index].post_content.toString()!,
                                       style: myStyle(16,textColors[index % textColors.length],FontWeight.w800),maxLines: 2,),
@@ -290,4 +294,6 @@ class _HomePageState extends State<HomePage> {
 
     return parsedString;
   }*/
+
+
 }

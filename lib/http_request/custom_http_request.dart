@@ -9,37 +9,16 @@ class CustomHttpRequest {
   static Future<dynamic> loadSODData(int limit, int page) async {
     print("Page no isssssssssssssssssssss$page");
     List<SODModel> allObjectsList = [];
-    print("starttttttt");
+
 
     var url =
         "${baseUrl}posts?per_page=$limit&page=$page"; //Constants.baseURL + "explore_frame.php";
     var responce = await http.get(Uri.parse(url));
-    print("responce status code is ${responce.statusCode} ");
-    var data = json.decode(responce.body.toString());
-    print("all SOD data areeeeeeeee$data");
-    if (data[0] != null) {
-      print("  link found");
-      for (var elem in data) {
-        if (elem['x_featured_media_large'] != null) {
-          SODModel sodModel = new SODModel(
-            id: elem['id'].toString(),
-            post_author: elem['author'].toString(),
-            post_date: elem['date'].toString(),
-            post_content: elem['content']['rendered'].toString(),
-            post_title: elem['title']['rendered'].toString(),
-            guid: elem['x_featured_media_large'].toString(),
-            post_name: elem['x_categories'].toString(),
-            c_date: elem['x_metadata']['c_date'].toString(),
-            c_day: elem['x_metadata']['c_day'].toString(),
-            link: elem["link"],
-          );
-          allObjectsList.add(sodModel);
-        }
-      }
-    } else {
-      print("No link found");
-    }
-    return allObjectsList;
+
+
+   // print("all SOD data areeeeeeeee$data");
+
+    return responce;
   }
 
 
