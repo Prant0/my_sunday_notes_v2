@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
 import 'package:mysundaynotes/screen/nav_bar/nav_bar_page.dart';
+import 'package:mysundaynotes/screen/sod_details_page.dart';
 import 'package:mysundaynotes/widget/widget.dart';
 import 'package:provider/provider.dart';
 
@@ -33,10 +34,21 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         title: 'MySundayNotes',
+        routes: {
+        //  "SODDetails":(context)=>SODDetailsPage(),
+
+        },
         debugShowCheckedModeBanner: false,
         theme: ThemeData(
 
        scaffoldBackgroundColor: blackDark,
+          appBarTheme: AppBarTheme(
+            iconTheme: IconThemeData(
+              color: yellowDark
+            ),
+            color: blackDark,
+            elevation: 0,
+          ),
           primarySwatch: Colors.blue,
           iconTheme: IconThemeData(
             color: yellowDark,
@@ -44,9 +56,9 @@ class MyApp extends StatelessWidget {
 
           textTheme: TextTheme(
 
-            titleLarge:  myStyle(22,yellowDark,FontWeight.w600),
-            titleMedium:  myStyle(20,yellowLight,FontWeight.w400),
-            titleSmall:  myStyle(16,yellowDark,FontWeight.w600),
+            titleLarge:  myStyle(tLarge,yellowDark,FontWeight.w600),
+            titleMedium:  myStyle(tMedium,yellowLight,FontWeight.w400),
+            titleSmall:  myStyle(tSmall,yellowDark,FontWeight.w600),
           )
         ),
         home: NavBarPage()

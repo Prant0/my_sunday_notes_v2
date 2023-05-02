@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:mysundaynotes/http_request/custom_http_request.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
+import 'package:mysundaynotes/screen/sod_details_page.dart';
 import 'package:mysundaynotes/widget/widget.dart';
 import 'package:provider/provider.dart';
 class HomePage extends StatefulWidget {
@@ -213,63 +213,68 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context,index){
                             DateTime postDateTime = DateTime.parse(
                                 sodData[index].post_date!);
-                        return Container(
-                          color: boxColors[index % boxColors.length],
-                           padding: EdgeInsets.symmetric(vertical: 6,horizontal: 8),
-                          child: Row(
-                            children: [
-                              Expanded(child: Container(
-                                height: 90,
-                                child: Image(image: NetworkImage(
-                                    sodData[index].guid.toString()),
-                                  fit: BoxFit.fill,
-                                  errorBuilder: (context, exception,
-                                      stackTrack) =>
-                                      Image(image: AssetImage(
-                                          'assets/placeholder.png')
-                                        , fit: BoxFit.fitHeight
-                                        , height: 160,
-                                        width: double.infinity,
+                        return InkWell(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SODDetailsPage(sodModel: sodData[index])));
+                          },
+                          child: Container(
+                            color: boxColors[index % boxColors.length],
+                             padding: EdgeInsets.symmetric(vertical: 6,horizontal: 8),
+                            child: Row(
+                              children: [
+                                Expanded(child: Container(
+                                  height: 90,
+                                  child: Image(image: NetworkImage(
+                                      sodData[index].guid.toString()),
+                                    fit: BoxFit.fill,
+                                    errorBuilder: (context, exception,
+                                        stackTrack) =>
+                                        Image(image: AssetImage(
+                                            'assets/placeholder.png')
+                                          , fit: BoxFit.fitHeight
+                                          , height: 160,
+                                          width: double.infinity,
+                                        ),
+                                  ),
+                                ),flex: 3,),
+                                SizedBox(width: 10,),
+                                Expanded(
+
+                                  child: Column(
+
+                                    children: [
+                                      Text(
+                                        "${sodData[index].post_title}",
+                                        style: myStyle(18,textColors[index % textColors.length],FontWeight.w800)),
+                                      SizedBox(
+                                        height: 5,
                                       ),
-                                ),
-                              ),flex: 3,),
-                              SizedBox(width: 10,),
-                              Expanded(
 
-                                child: Column(
-
-                                  children: [
-                                    Text(
-                                      "${sodData[index].post_title}",
-                                      style: myStyle(18,textColors[index % textColors.length],FontWeight.w800)),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-
-                                    Text(
-                                        sodData[index].post_content.toString()!,
-                                      style: myStyle(16,textColors[index % textColors.length],FontWeight.w800),maxLines: 2,),
-                                    SizedBox(
-                                      height: 5,
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(Icons.calendar_today, size: 16,
-                                          color: Colors.red,),
-                                        Text(" " +
-                                            postDateTime.month.toString() +
-                                            "-" +
-                                            postDateTime.day.toString() +
-                                            "-" +
-                                            postDateTime.year.toString(),
-                                          style: myStyle(14,textColors[index % textColors.length],FontWeight.w800))
-                                      ],
-                                    ),
-                                  ],
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                ),
-                             flex: 10,),
-                            ],
+                                      Text(
+                                          sodData[index].post_content.toString()!,
+                                        style: myStyle(16,textColors[index % textColors.length],FontWeight.w800),maxLines: 2,),
+                                      SizedBox(
+                                        height: 5,
+                                      ),
+                                      Row(
+                                        children: [
+                                          Icon(Icons.calendar_today, size: 16,
+                                            color: Colors.red,),
+                                          Text(" " +
+                                              postDateTime.month.toString() +
+                                              "-" +
+                                              postDateTime.day.toString() +
+                                              "-" +
+                                              postDateTime.year.toString(),
+                                            style: myStyle(14,textColors[index % textColors.length],FontWeight.w800))
+                                        ],
+                                      ),
+                                    ],
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                  ),
+                               flex: 10,),
+                              ],
+                            ),
                           ),
                         );
                       }),

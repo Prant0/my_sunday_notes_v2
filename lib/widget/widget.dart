@@ -6,6 +6,8 @@ import 'package:google_fonts/google_fonts.dart';
 
 
 const String baseUrl="https://mysundaynotes.com/wp-json/wp/v2/";
+const String demoImage="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80";
+
 
 const Color blackCLr =Colors.black;
 const Color blackDark =Color(0xff231f20);
@@ -16,6 +18,10 @@ const Color grayClr =Color(0xffe6e7e8);
 
 
 const double bodyPadding=16;
+const double tSmall=16;
+const double tMedium=20;
+const double tLarge=20;
+
 
 
 List boxColors = [yellowLight,blackLight];
