@@ -44,4 +44,17 @@ class CustomHttpRequest {
     }
     return allChurchList;
   }
+
+
+  static Future loadUserData(queryParams) {
+    var url = baseUrl2 + "load_usermeta.php";
+    return http.post(Uri.parse(url), body: queryParams);
+  }
+
+  static Future searchAuthors(queryParams) {
+    //var url="https://mysundaynotes.com/wp-json/wp/v2/users?per_page=2&page=3";
+    var url = "https://mysundaynotes.com/wp-json/wp/v2/users?search=$queryParams";//Constants.baseURL + "search_authors.php";
+    return http.get(Uri.parse(url));
+  }
+
 }

@@ -20,9 +20,11 @@ class _HomePageState extends State<HomePage> {
       isLoading=true;
     });
      await Provider.of<HomeProvider>(context, listen: false).getSODData(10, );
-    setState(() {
-      isLoading=false;
-    });
+   if(mounted){
+     setState(() {
+       isLoading=false;
+     });
+   }
     //await CustomHttpRequest.loadSODData(20, 1);
   }
 
@@ -55,7 +57,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var sodData = Provider.of<HomeProvider>(context).allSODData;
     var churchList = Provider.of<HomeProvider>(context).allChurchList;
-
     return SafeArea(
       child: Scaffold(
         body: Container(

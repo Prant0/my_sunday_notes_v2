@@ -23,7 +23,7 @@ void main(){
 }
 
 class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+
 
   // This widget is the root of your application.
   @override
@@ -57,7 +57,7 @@ class MyApp extends StatelessWidget {
           textTheme: TextTheme(
 
             titleLarge:  myStyle(tLarge,yellowDark,FontWeight.w600),
-            titleMedium:  myStyle(tMedium,yellowLight,FontWeight.w400),
+            titleMedium:  myStyle(tMedium,yellowDark,FontWeight.w400),
             titleSmall:  myStyle(tSmall,yellowDark,FontWeight.w600),
           )
         ),

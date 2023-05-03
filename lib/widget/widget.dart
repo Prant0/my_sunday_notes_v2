@@ -2,10 +2,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
+import 'package:fluttertoast/fluttertoast.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 
 const String baseUrl="https://mysundaynotes.com/wp-json/wp/v2/";
+const String baseUrl2 = "https://apis.mysundaynotes.com/apis/";
+const String imageUrl = "https://mysundaynotes.com/wp-content/uploads/";
+
 const String demoImage="https://images.unsplash.com/photo-1494790108377-be9c29b29330?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=774&q=80";
 
 
@@ -37,5 +41,17 @@ myStyle(double size,[Color ?clr,FontWeight ?fw]){
     fontSize: size,
     color: clr,
     fontWeight: fw
+  );
+}
+
+showInToast(String text){
+  return Fluttertoast.showToast(
+      msg: "$text",
+      toastLength: Toast.LENGTH_SHORT,
+      gravity: ToastGravity.CENTER,
+      timeInSecForIosWeb: 1,
+      backgroundColor: Colors.red,
+      textColor: Colors.white,
+      fontSize: 16.0
   );
 }

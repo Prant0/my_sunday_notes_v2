@@ -46,8 +46,6 @@ class _NavBarPageState extends State<NavBarPage> {
               Divider(
                 color: yellowDark,
                 thickness: 3,
-                endIndent: bodyPadding,
-                indent: bodyPadding,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
