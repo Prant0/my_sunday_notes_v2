@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mysundaynotes/http_request/custom_http_request.dart';
+import 'package:mysundaynotes/model/sod_model.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
 import 'package:mysundaynotes/screen/sod_details_page.dart';
 import 'package:mysundaynotes/widget/widget.dart';
@@ -251,6 +252,7 @@ class _HomePageState extends State<HomePage> {
                                         height: 5,
                                       ),
 
+
                                       Text(
                                           sodData[index].post_content.toString()!,
                                         style: myStyle(16,textColors[index % textColors.length],FontWeight.w800),maxLines: 2,),
@@ -303,3 +305,6 @@ class _HomePageState extends State<HomePage> {
 // df
 
 }
+
+
+

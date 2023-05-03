@@ -57,4 +57,10 @@ class CustomHttpRequest {
     return http.get(Uri.parse(url));
   }
 
+  static Future loadSelectedAuthorData(int queryParams,int limit,int page) {
+    var url = "https://mysundaynotes.com/wp-json/wp/v2/posts?author=$queryParams&per_page=$limit&page=$page" ;//Constants.baseURL + "user_selected_sods.php";
+    return http.get(Uri.parse(url));
+  }
+
+
 }

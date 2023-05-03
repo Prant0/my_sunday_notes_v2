@@ -42,41 +42,54 @@ class _NavBarPageState extends State<NavBarPage> {
         child: BottomAppBar(
           color: blackDark,
           child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Divider(
                 color: yellowDark,
                 thickness: 3,
               ),
               Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  IconButton(onPressed: (){
-                    setState(() {
-                      selectedItem=0;
-                      pageController.jumpToPage(selectedItem);
-                    });
-                  }, icon: Icon(Icons.ac_unit)),
-                  IconButton(onPressed: (){
-                    setState(() {
-                      selectedItem=1;
-                      pageController.jumpToPage(selectedItem);
-                    });
-                  }, icon: Icon(Icons.ac_unit)),
+                  InkWell(
+                    onTap:  (){
+                      setState(() {
+                        selectedItem=0;
+                        pageController.jumpToPage(selectedItem);
+                      });
+                    },
+                    child: Image.asset("assets/Home.png",height: 35,width: 35,),
+                  ),InkWell(
+                    onTap:  (){
+                      setState(() {
+                        selectedItem=1;
+                        pageController.jumpToPage(selectedItem);
+                      });
+                    },
+                    child: Image.asset("assets/BibleScripture.png",height: 35,width: 35,),
+                  ), InkWell(
+                    onTap:  (){
+                      setState(() {
+                        selectedItem=2;
+                        pageController.jumpToPage(selectedItem);
+                      });
+                    },
+                    child: Image.asset("assets/Find-Church.png",height: 35,width: 35,),
+                  ), InkWell(
+                    onTap:  (){
+                      setState(() {
+                        selectedItem=3;
+                        pageController.jumpToPage(selectedItem);
+                      });
+                    },
+                    child: Image.asset("assets/SOD.png",height: 35,width: 35,),
+                  ),
 
-                  IconButton(onPressed: (){
-                    setState(() {
-                      selectedItem=2;
-                      pageController.jumpToPage(selectedItem);
-                    });
-                  }, icon: Icon(Icons.ac_unit)),
-                  IconButton(onPressed: (){
-                    setState(() {
-                      selectedItem=3;
-                      pageController.jumpToPage(selectedItem);
-                    });
-                  }, icon: Icon(Icons.ac_unit)),
+
                 ],
               ),
+              SizedBox(height: 1,)
             ],
           ),
         ),

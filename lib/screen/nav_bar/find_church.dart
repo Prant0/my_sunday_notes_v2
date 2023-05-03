@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
+import 'package:mysundaynotes/screen/author_sod_page.dart';
 import 'package:mysundaynotes/screen/search_church_List_page.dart';
 import 'package:mysundaynotes/widget/widget.dart';
 import 'package:provider/provider.dart';
@@ -19,12 +20,17 @@ class _FindChurchPageState extends State<FindChurchPage> {
       backgroundColor: grayClr,
       appBar: AppBar(
         backgroundColor: grayClr,
-        leading: Icon(Icons.arrow_back,color: blackCLr,),
+        leading: Icon(
+          Icons.arrow_back,
+          color: blackCLr,
+        ),
         centerTitle: true,
-        title: Text("Find Church",style: myStyle(20,blackDark),),
+        title: Text(
+          "Find Church",
+          style: myStyle(20, blackDark),
+        ),
       ),
       body: Container(
-
         child: Column(
           children: [
             /*Padding(
@@ -56,12 +62,17 @@ class _FindChurchPageState extends State<FindChurchPage> {
                 },
               ),
             ),*/
-            MaterialButton(onPressed: (){
-              Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SearchChurchList()));
-            },
+            MaterialButton(
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => SearchChurchList()));
+              },
               color: blackDark,
-              padding: EdgeInsets.symmetric(horizontal: 26,vertical: 10),
-            child: Text("Search Find Church",style: Theme.of(context).textTheme.titleLarge,),
+              padding: EdgeInsets.symmetric(horizontal: 26, vertical: 10),
+              child: Text(
+                "Search Find Church",
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
             ),
             Flexible(
               child: GridView.builder(
@@ -74,43 +85,48 @@ class _FindChurchPageState extends State<FindChurchPage> {
                 itemCount: churchList.length,
                 shrinkWrap: false,
                 itemBuilder: (context, index) {
-                  return  InkWell(
+                  return InkWell(
                     onTap: () {
-
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => AuthorSodPage(
+                                id: int.parse(churchList[index].id.toString()),
+                                title: churchList[index].firstname,
+                              )));
                     },
                     child: Container(
                       margin: EdgeInsets.symmetric(horizontal: 8),
                       child: Column(
-                        mainAxisAlignment:
-                        MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           CircleAvatar(
                             maxRadius: 50,
                             backgroundColor: Colors.transparent,
                             child: ClipRRect(
-                              child: Image.network( churchList[index].avatar_thumb.toString()),
+                              child: Image.network(
+                                  churchList[index].avatar_thumb.toString()),
                               borderRadius: BorderRadius.circular(50.0),
                             ),
                           ),
                           SizedBox(
                             height: 5,
                           ),
-                      Text("${churchList[index].firstname ?? ""}",
-                        maxLines: 2,textAlign: TextAlign.center,
-                        style: myStyle(tMedium,blackDark,FontWeight.w800)),
+                          Text("${churchList[index].firstname ?? ""}",
+                              maxLines: 2,
+                              textAlign: TextAlign.center,
+                              style:
+                                  myStyle(tMedium, blackDark, FontWeight.w800)),
                           Align(
                             alignment: Alignment.center,
-                            child:  Text("${churchList[index].bio ?? ""}",
-                              maxLines: 1,textAlign: TextAlign.center,
-                                style: myStyle(tSmall,blackDark,FontWeight.bold)),
-                            ),
-
+                            child: Text("${churchList[index].bio ?? ""}",
+                                maxLines: 1,
+                                textAlign: TextAlign.center,
+                                style: myStyle(
+                                    tSmall, blackDark, FontWeight.bold)),
+                          ),
                         ],
                       ),
                     ),
                   );
-
-
                 },
               ),
             )
@@ -119,6 +135,7 @@ class _FindChurchPageState extends State<FindChurchPage> {
       ),
     );
   }
+
   final controller = ScrollController();
   FocusNode emailFocusNode = new FocusNode();
   TextEditingController searchController = new TextEditingController();
