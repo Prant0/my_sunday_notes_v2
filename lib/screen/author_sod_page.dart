@@ -29,21 +29,23 @@ class _AuthorSodPageState extends State<AuthorSodPage> {
 
   loadData() {
     if (isLoading) return;
-    isLoading = true;
-    this.loading = true;
+   setState(() {
+     isLoading = true;
+   });
     CustomHttpRequest.loadSelectedAuthorData(widget.id, limit, page)
         .then((value) {
+      setState(() {
+        isLoading = false;
+      });
       print(value.body.toString());
       var array = json.decode(value.body.toString());
       if (array[0] != null) {
 
       } else {
         print("No link found");
-        setState(() {
-          loading = false;
-          hasMore = false;
-        });
-        print("$hasMore");
+        showInToast("No More Data Found");
+
+
       }
       for (var elem in array) {
         if (elem['x_featured_media_large'] != null) {
@@ -64,26 +66,9 @@ class _AuthorSodPageState extends State<AuthorSodPage> {
 
         }
 
-       /* if (elem['x_featured_media_large'] != null) {
-          SODModel obj = new SODModel(
-              id: elem['id'].toString(),
-              post_author: elem['author'].toString(),
-              post_date: elem['date'].toString(),
-              post_content: elem['content']['rendered'].toString(),
-              post_title: elem['title']['rendered'].toString(),
-              guid: ['x_featured_media_medium'].toString(),
-              post_name: elem['x_categories'].toString(),
-              c_date: elem['x_metadata']['c_date'].toString(),
-              c_day: elem['x_metadata']['c_day'].toString());
-          var link = elem["link"];
-          print("link isssssssssssssssss${obj.guid.toString()}");
-          linkList.add(link);
-          allObjects.add(obj);
-        }*/
       }
 
       page++;
-      isLoading = false;
 
       if (mounted) {
         this.setState(() {});
@@ -251,9 +236,10 @@ class _AuthorSodPageState extends State<AuthorSodPage> {
                             onTap: () {
                               Navigator.of(context).push(MaterialPageRoute(
                                   builder: (context) => SODDetailsPage(
-                                      sodModel: allObjects[index])));
+                                      sodModel: allObjects[index],allObjects: allObjects,)));
                             },
                             child: Container(
+
                               color: boxColors[index % boxColors.length],
                               padding: EdgeInsets.symmetric(
                                   vertical: 6, horizontal: 8),
@@ -279,9 +265,10 @@ class _AuthorSodPageState extends State<AuthorSodPage> {
                                   ),
                                   Expanded(
                                     child: Column(
-
+                                      mainAxisSize: MainAxisSize.min,
+                                      mainAxisAlignment: MainAxisAlignment.center,
                                       children: [
-                                        Text("${allObjects[index].post_title}",
+                                        Text("  ${allObjects[index].post_title}",
                                             style: myStyle(
                                                 18,
                                                 textColors[
@@ -292,11 +279,14 @@ class _AuthorSodPageState extends State<AuthorSodPage> {
                                             .post_content}",
                                           style: {
                                             'html': Style(
-                                              color:  textColors[
-                                              index % textColors.length],
+                                                height: 65,
+
+                                                padding: EdgeInsets.all(0),
+                                                color:  textColors[
+                                                index % textColors.length],
                                                 fontSize: FontSize.large,
                                                 fontWeight: FontWeight.w600,
-                                            maxLines: 2
+                                                maxLines: 2
                                             ),
                                             'h1': Style(color: textColors[
                                             index % textColors.length],),
@@ -310,6 +300,7 @@ class _AuthorSodPageState extends State<AuthorSodPage> {
 
                                         Row(
                                           children: [
+                                            SizedBox(width: 10,),
                                             Icon(
                                               Icons.calendar_today,
                                               size: 16,
@@ -344,12 +335,17 @@ class _AuthorSodPageState extends State<AuthorSodPage> {
                           );
                         }),
                     isLoading
-                        ? Padding(
-                            padding: const EdgeInsets.all(16.0),
-                            child: spinkit,
-                          )
+                        ? Column(
+                          children: [
+                            Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 32),
+                                child: spinkit,
+                              ),
+
+                          ],
+                        )
                         : SizedBox(
-                            height: MediaQuery.of(context).size.height * 0.20,
+                            height: 100,
                           )
 
                   ],

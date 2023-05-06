@@ -48,10 +48,10 @@ showInToast(String text){
   return Fluttertoast.showToast(
       msg: "$text",
       toastLength: Toast.LENGTH_SHORT,
-      gravity: ToastGravity.CENTER,
+      gravity: ToastGravity.BOTTOM,
       timeInSecForIosWeb: 1,
-      backgroundColor: Colors.red,
-      textColor: Colors.white,
+      backgroundColor: blackDark,
+      textColor: yellowDark,
       fontSize: 16.0
   );
 }

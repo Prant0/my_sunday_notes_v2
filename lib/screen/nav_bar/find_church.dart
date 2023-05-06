@@ -20,8 +20,11 @@ class _FindChurchPageState extends State<FindChurchPage> {
       backgroundColor: grayClr,
       appBar: AppBar(
         backgroundColor: grayClr,
-        leading: Icon(
-          Icons.arrow_back,
+        leading: IconButton(
+          onPressed: (){
+            Navigator.of(context).pop();
+          },
+          icon: Icon(Icons.arrow_back,),
           color: blackCLr,
         ),
         centerTitle: true,
@@ -33,35 +36,7 @@ class _FindChurchPageState extends State<FindChurchPage> {
       body: Container(
         child: Column(
           children: [
-            /*Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: TextField(
-                focusNode: emailFocusNode,
-                decoration: InputDecoration(
-                  focusedBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-                    borderRadius: BorderRadius.circular(4),
-                  ),
-                  labelStyle: TextStyle(
-                      color: !emailFocusNode.hasFocus
-                          ? Colors.grey
-                          : Colors.blueGrey),
-                  labelText: 'Search',
-                ),
-                textInputAction: TextInputAction.search,
-                autocorrect: false,
-                obscureText: false,
-                keyboardType: TextInputType.text,
-                controller: searchController,
-                onSubmitted: (search) {
-                  //searchChurches(search);
-                },
-              ),
-            ),*/
+
             MaterialButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -134,6 +109,33 @@ class _FindChurchPageState extends State<FindChurchPage> {
         ),
       ),
     );
+  }
+
+  bool isLoading=false;
+  int pageNo=1;
+  loadChurchList() async {
+    setState(() {
+      isLoading=true;
+    });
+    await Provider.of<HomeProvider>(context, listen: false).getAllChurchData(20,  );
+    if(mounted){
+      setState(() {
+        isLoading=false;
+      });
+    }
+    //await CustomHttpRequest.loadSODData(20, 1);
+  }
+  @override
+  void initState() {
+    loadChurchList();
+    controller.addListener(() {
+      if (controller.position.maxScrollExtent == controller.offset) {
+        Provider.of<HomeProvider>(context,listen: false).incrementChurch();
+
+        loadChurchList();
+      }
+    });
+    super.initState();
   }
 
   final controller = ScrollController();

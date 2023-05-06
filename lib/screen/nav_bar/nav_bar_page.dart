@@ -4,6 +4,9 @@ import 'package:mysundaynotes/screen/nav_bar/categories_page.dart';
 import 'package:mysundaynotes/screen/nav_bar/find_church.dart';
 import 'package:mysundaynotes/screen/nav_bar/home_page.dart';
 import 'package:mysundaynotes/widget/widget.dart';
+import 'package:provider/provider.dart';
+
+import '../../provider/home_provider.dart';
 
 
 class NavBarPage extends StatefulWidget {
@@ -27,6 +30,19 @@ class _NavBarPageState extends State<NavBarPage> {
     setState(() {
       selectedItem=index;
     });
+  }
+
+  loadDrawer() async {
+
+    await Provider.of<HomeProvider>(context, listen: false)
+        .loadDrawerCategories();
+  }
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    loadDrawer();
+    super.initState();
   }
   @override
   Widget build(BuildContext context) {

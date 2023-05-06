@@ -11,9 +11,9 @@ import 'package:provider/provider.dart';
 
 class SODDetailsPage extends StatefulWidget {
   SODModel sodModel;
+  List<SODModel> allObjects ;
 
-
-  SODDetailsPage({Key? key, required this.sodModel}) : super(key: key);
+  SODDetailsPage({Key? key,required this.allObjects, required this.sodModel}) : super(key: key);
 
   @override
   State<SODDetailsPage> createState() => _SODDetailsPageState();
@@ -205,6 +205,7 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
 
                                     return InkWell(
                                       onTap: (){
+                                        Navigator.of(context).push(MaterialPageRoute(builder: (context)=>SODDetailsPage(sodModel: sodData[index],allObjects: sodData,)));
 
                                       },
                                       child: Container(
@@ -218,7 +219,7 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
                                               mainAxisSize: MainAxisSize.min,
                                               children: [
                                                 ClipRRect(
-                                                  child: Image(image: NetworkImage("${sodData[index].guid}"),
+                                                  child: Image(image: NetworkImage("${widget.allObjects[index].guid}"),
                                                     fit: BoxFit.cover,
                                                     height: 110,
                                                     width: 200,
@@ -234,7 +235,7 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
                                                 SizedBox(
                                                   height: 4,
                                                 ),
-                                                Text("${sodData[index].post_title??""}", maxLines: 1,
+                                                Text("${widget.allObjects[index].post_title??""}", maxLines: 1,
                                                 style: Theme.of(context).textTheme.titleSmall,
                                                 )
                                               ],

@@ -7,7 +7,7 @@ import 'package:mysundaynotes/widget/widget.dart';
 
 class CustomHttpRequest {
   static Future<dynamic> loadSODData(int limit, int page) async {
-    print("Page no isssssssssssssssssssss$page");
+    //print("Page no isssssssssssssssssssss$page");
     List<SODModel> allObjectsList = [];
 
 
@@ -27,22 +27,10 @@ class CustomHttpRequest {
     var url =
         "https://mysundaynotes.com/wp-json/wp/v2/users?per_page=$limit&page=$page"; //Constants.baseURL + "search_authors.php";
     var responce = await http.get(Uri.parse(url));
-    print("responce status code is ${responce.statusCode} ");
-    var elem = json.decode(responce.body);
-   // print("All church data areee $elem");
-    for (var i in elem) {
-      Authors auth = Authors(
-          id: i['id'].toString(),
-          firstname: i['name'].toString(),
-          lastname: i['last_name'].toString(),
-          bio: i['description'].toString(),
-          avatar_thumb: i['avatar_urls']['96'].toString(),
-          photo:i['simple_local_avatar']!=null? i['simple_local_avatar']["full"].toString() :"no photo pranto",
+    print("responce status code is ${responce.statusCode} $page ");
+   // print("responce   is ${responce.body} ");
+    return responce;
 
-      );
-      allChurchList.add(auth);
-    }
-    return allChurchList;
   }
 
 
@@ -61,6 +49,13 @@ class CustomHttpRequest {
     var url = "https://mysundaynotes.com/wp-json/wp/v2/posts?author=$queryParams&per_page=$limit&page=$page" ;//Constants.baseURL + "user_selected_sods.php";
     return http.get(Uri.parse(url));
   }
-
+  static Future loadSidebarCategories(queryParams) {
+    var url = baseUrl2 + "scriptures_parents.php";
+    return http.get(Uri.parse(url));
+  }
+  static Future loadScriptures(queryParams) {
+    var url = "https://mysundaynotes.com/wp-json/wp/v2/envira-gallery/"+queryParams;//Constants.baseURL + "load_scriptures.php";
+    return http.get(Uri.parse(url));
+  }
 
 }

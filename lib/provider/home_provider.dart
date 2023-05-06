@@ -3,16 +3,25 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:mysundaynotes/http_request/custom_http_request.dart';
 import 'package:mysundaynotes/model/author_model.dart';
+import 'package:mysundaynotes/model/category_model.dart';
 import 'package:mysundaynotes/model/sod_model.dart';
+import 'package:mysundaynotes/widget/widget.dart';
 
 class HomeProvider with ChangeNotifier {
   List<SODModel> allSODData = [];
   List<Authors> allChurchList = [];
+  int churchLength =0;
 
   int pageNo = 1;
+  int churchNo = 1;
 
   incrementSOD() {
     pageNo = pageNo + 1;
+    notifyListeners();
+  }
+
+  incrementChurch() {
+    churchNo = churchNo + 1;
     notifyListeners();
   }
 
@@ -39,11 +48,11 @@ class HomeProvider with ChangeNotifier {
             link: elem["link"],
           );
           try {
-            allSODData.firstWhere((element) => element.post_title ==elem['title']['rendered'].toString());
+            allSODData.firstWhere((element) =>
+                element.post_title == elem['title']['rendered'].toString());
           } catch (e) {
             allSODData.add(sodModel);
           }
-
         }
       }
     } else {
@@ -55,8 +64,63 @@ class HomeProvider with ChangeNotifier {
     print("Total length of all sod is ${allSODData.length}");
   }
 
-  getAllChurchData(int limit, page) async {
-    allChurchList = await CustomHttpRequest.loadAllChurchData(limit, page);
-    notifyListeners();
+  getAllChurchData(
+    int limit,
+  ) async {
+    //allChurchList.addAll(await CustomHttpRequest.loadAllChurchData(limit, page)) ;
+   // final responce = await CustomHttpRequest.loadAllChurchData(limit, churchNo);
+    churchLength=allChurchList.length;
+    CustomHttpRequest.loadAllChurchData(limit, churchNo).then((value) {
+      var elem = json.decode(value.body);
+      print( "All church data areeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee ${value.body}");
+      for (var i in elem) {
+        Authors auth = Authors(
+          id: i['id'].toString(),
+          firstname: i['name'].toString(),
+          lastname: i['last_name'].toString(),
+          bio: i['description'].toString(),
+          avatar_thumb: i['avatar_urls']['96'].toString(),
+          photo: i['simple_local_avatar'] != null
+              ? i['simple_local_avatar']["full"].toString()
+              : "no photo pranto",
+        );
+        if(i['id'] != null){
+          print("wwwwwwwwwwwwwwwwwwww");
+        }else{
+          print("rrrrrrrrrrrrrrrrrrrrrrr");
+        }
+        try {
+          allChurchList.firstWhere(
+                  (element) => element.id == i['id'].toString().toString());
+        } catch (e) {
+          allChurchList.add(auth);
+        }
+
+
+
+        //allChurchList.add(auth);
+      }
+
+      notifyListeners();
+    });
+
   }
+
+  List<CategoryModel> sidebarCats = [];
+  loadDrawerCategories() {
+    sidebarCats = [];
+    CustomHttpRequest.loadSidebarCategories({}).then((value) {
+      var jsonData = json.decode(value.body.toString());
+      print("Drawer option areeeeeeeeeeeeeeeeeeeee$jsonData");
+      for (var element in jsonData) {
+        CategoryModel cat = new CategoryModel();
+        cat.id = element['ID'].toString();
+        cat.title = element['post_title'].toString();
+        //cat.fromJson(element);
+        print("drawer titleeee ${cat.title}");
+        sidebarCats.add(cat);
+      }
+    });
+  }
+
 }
