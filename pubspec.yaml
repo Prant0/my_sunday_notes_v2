@@ -46,7 +46,6 @@ dependencies:
   flutter_html: ^2.0.0
   fluttertoast: ^8.2.1
   carousel_slider:
-  flutter_webview_plugin:
 
 
 dev_dependencies:

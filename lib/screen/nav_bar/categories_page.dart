@@ -6,6 +6,7 @@ import 'package:mysundaynotes/http_request/custom_http_request.dart';
 import 'package:mysundaynotes/model/category_model.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
 import 'package:mysundaynotes/screen/categories_show.dart';
+import 'package:mysundaynotes/screen/drawer/custom_drawer.dart';
 import 'package:mysundaynotes/widget/widget.dart';
 import 'package:provider/provider.dart';
 
@@ -82,6 +83,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
   }
 
 
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   void dispose() {
     // TODO: implement dispose
@@ -92,13 +95,16 @@ class _CategoriesPageState extends State<CategoriesPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: CustomDrawer(),
       appBar: AppBar(
         leading: IconButton(
           onPressed: () {
-            Navigator.of(context).pop();
+            _scaffoldKey.currentState!.openDrawer();
+            //Navigator.of(context).pop();
           },
           icon: Icon(
-            Icons.arrow_back,
+            Icons.menu,
             size: 30,
           ),
           color: yellowDark,

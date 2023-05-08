@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
 import 'package:mysundaynotes/screen/author_sod_page.dart';
+import 'package:mysundaynotes/screen/drawer/custom_drawer.dart';
 import 'package:mysundaynotes/screen/search_church_List_page.dart';
 import 'package:mysundaynotes/widget/widget.dart';
 import 'package:provider/provider.dart';
@@ -13,18 +14,23 @@ class FindChurchPage extends StatefulWidget {
 }
 
 class _FindChurchPageState extends State<FindChurchPage> {
+
+  final GlobalKey<ScaffoldState> _scaffoldKey = new GlobalKey<ScaffoldState>();
+
   @override
   Widget build(BuildContext context) {
     var churchList = Provider.of<HomeProvider>(context).allChurchList;
     return Scaffold(
+      key: _scaffoldKey,
+      drawer: CustomDrawer(),
       backgroundColor: grayClr,
       appBar: AppBar(
         backgroundColor: grayClr,
         leading: IconButton(
           onPressed: (){
-            Navigator.of(context).pop();
+            _scaffoldKey.currentState!.openDrawer();
           },
-          icon: Icon(Icons.arrow_back,),
+          icon: Icon(Icons.menu,),
           color: blackCLr,
         ),
         centerTitle: true,
@@ -82,9 +88,7 @@ class _FindChurchPageState extends State<FindChurchPage> {
                               borderRadius: BorderRadius.circular(50.0),
                             ),
                           ),
-                          SizedBox(
-                            height: 5,
-                          ),
+
                           Text("${churchList[index].firstname ?? ""}",
                               maxLines: 2,
                               textAlign: TextAlign.center,
@@ -95,6 +99,7 @@ class _FindChurchPageState extends State<FindChurchPage> {
                             child: Text("${churchList[index].bio ?? ""}",
                                 maxLines: 1,
                                 textAlign: TextAlign.center,
+                                overflow: TextOverflow.ellipsis,
                                 style: myStyle(
                                     tSmall, blackDark, FontWeight.bold)),
                           ),

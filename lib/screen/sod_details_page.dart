@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'dart:io';
-import 'package:flutter_webview_plugin/flutter_webview_plugin.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_html/flutter_html.dart';
@@ -134,18 +133,9 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
                     Container(
                       height: 120,
                       color: Colors.white,
-                      child:WebviewScaffold(
-                        url: "${location}",
-                        withZoom: true,
-                        withLocalStorage: true,
-                        hidden: true,
-                        initialChild: Container(
-                          color: Colors.white,
-                          child: const Center(child: CircularProgressIndicator()),
-                        ),
-                      ),
 
-                      /* WebView(
+
+                     child:  WebView(
                         initialUrl: Uri.dataFromString('''
   <html>
     <body>
@@ -155,7 +145,7 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
     </body>
   </html>
 ''', mimeType: 'text/html').toString(),
-                      ),*/
+                      ),
                     ),
                     Container(
                       alignment: Alignment.center,

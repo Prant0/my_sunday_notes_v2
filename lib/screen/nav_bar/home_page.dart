@@ -177,13 +177,13 @@ class _HomePageState extends State<HomePage> {
                                   ),
                                   Row(
                                     mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
+                                        MainAxisAlignment.spaceAround,
                                     children: [
                                       SizedBox(
                                         height: 120,
                                         width:
                                             MediaQuery.of(context).size.width *
-                                                0.78,
+                                                0.75,
                                         child: ListView.builder(
                                             scrollDirection: Axis.horizontal,
                                             shrinkWrap: true,
@@ -264,7 +264,7 @@ class _HomePageState extends State<HomePage> {
                                               size: 44,
                                               color: blackDark,
                                             ),
-                                            Text("See all  ")
+                                            Text("See all")
                                           ],
                                         ),
                                       ),
