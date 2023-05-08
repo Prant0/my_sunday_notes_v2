@@ -52,6 +52,6 @@ showInToast(String text){
       timeInSecForIosWeb: 1,
       backgroundColor: blackDark,
       textColor: yellowDark,
-      fontSize: 16.0
+      fontSize: 20.0
   );
 }

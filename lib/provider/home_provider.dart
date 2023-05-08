@@ -5,12 +5,11 @@ import 'package:mysundaynotes/http_request/custom_http_request.dart';
 import 'package:mysundaynotes/model/author_model.dart';
 import 'package:mysundaynotes/model/category_model.dart';
 import 'package:mysundaynotes/model/sod_model.dart';
-import 'package:mysundaynotes/widget/widget.dart';
 
 class HomeProvider with ChangeNotifier {
   List<SODModel> allSODData = [];
   List<Authors> allChurchList = [];
-  int churchLength =0;
+  int churchLength = 0;
 
   int pageNo = 1;
   int churchNo = 1;
@@ -68,11 +67,12 @@ class HomeProvider with ChangeNotifier {
     int limit,
   ) async {
     //allChurchList.addAll(await CustomHttpRequest.loadAllChurchData(limit, page)) ;
-   // final responce = await CustomHttpRequest.loadAllChurchData(limit, churchNo);
-    churchLength=allChurchList.length;
+    // final responce = await CustomHttpRequest.loadAllChurchData(limit, churchNo);
+    churchLength = allChurchList.length;
     CustomHttpRequest.loadAllChurchData(limit, churchNo).then((value) {
       var elem = json.decode(value.body);
-      print( "All church data areeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee ${value.body}");
+      print(
+          "All church data areeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee ${value.body}");
       for (var i in elem) {
         Authors auth = Authors(
           id: i['id'].toString(),
@@ -84,29 +84,27 @@ class HomeProvider with ChangeNotifier {
               ? i['simple_local_avatar']["full"].toString()
               : "no photo pranto",
         );
-        if(i['id'] != null){
+        if (i['id'] != null) {
           print("wwwwwwwwwwwwwwwwwwww");
-        }else{
+        } else {
           print("rrrrrrrrrrrrrrrrrrrrrrr");
         }
         try {
           allChurchList.firstWhere(
-                  (element) => element.id == i['id'].toString().toString());
+              (element) => element.id == i['id'].toString().toString());
         } catch (e) {
           allChurchList.add(auth);
         }
-
-
 
         //allChurchList.add(auth);
       }
 
       notifyListeners();
     });
-
   }
 
   List<CategoryModel> sidebarCats = [];
+
   loadDrawerCategories() {
     sidebarCats = [];
     CustomHttpRequest.loadSidebarCategories({}).then((value) {
@@ -122,5 +120,22 @@ class HomeProvider with ChangeNotifier {
       }
     });
   }
+
+  List<CategoryModel> allCategories = [];
+
+  loadCategories() {
+    CustomHttpRequest.loadCategories(100,1).then((value) {
+      var jsonData = json.decode(value.body.toString());
+      for (var element in jsonData) {
+        CategoryModel cat = new CategoryModel();
+        cat.fromJson(element);
+        allCategories.add(cat);
+      }
+
+      notifyListeners();
+
+    });
+  }
+
 
 }

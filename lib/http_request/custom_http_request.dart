@@ -57,5 +57,9 @@ class CustomHttpRequest {
     var url = "https://mysundaynotes.com/wp-json/wp/v2/envira-gallery/"+queryParams;//Constants.baseURL + "load_scriptures.php";
     return http.get(Uri.parse(url));
   }
-
+  static Future loadCategories(int limit,int page) {
+    print("page isssssssss$page");
+    var url = "https://mysundaynotes.com/wp-json/wp/v2/categories?per_page=$limit&page=$page";//Constants.baseURL + "scriptures_parents.php";
+    return http.get(Uri.parse(url));
+  }
 }

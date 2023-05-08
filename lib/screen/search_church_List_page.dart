@@ -59,10 +59,10 @@ class _SearchChurchListState extends State<SearchChurchList> {
                         searchController.clear();
                       });
                     },
-                    icon: Icon(Icons.cancel),
+                    icon: Icon(Icons.cancel,color: blackDark,),
                   )
                   ),
-
+                  cursorColor: blackDark,
                   textInputAction: TextInputAction.search,
                   autocorrect: false,
                   obscureText: false,

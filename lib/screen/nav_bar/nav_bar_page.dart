@@ -8,7 +8,6 @@ import 'package:provider/provider.dart';
 
 import '../../provider/home_provider.dart';
 
-
 class NavBarPage extends StatefulWidget {
   const NavBarPage({Key? key}) : super(key: key);
 
@@ -17,25 +16,25 @@ class NavBarPage extends StatefulWidget {
 }
 
 class _NavBarPageState extends State<NavBarPage> {
-  int selectedItem=0;
-  PageController pageController=PageController();
-  List<Widget> pages=[
+  int selectedItem = 0;
+  PageController pageController = PageController();
+  List<Widget> pages = [
     HomePage(),
     BookPage(),
     FindChurchPage(),
     CategoriesPage()
   ];
 
-  void onPageChange(int index){
+  void onPageChange(int index) {
     setState(() {
-      selectedItem=index;
+      selectedItem = index;
     });
   }
 
   loadDrawer() async {
-
     await Provider.of<HomeProvider>(context, listen: false)
         .loadDrawerCategories();
+   await Provider.of<HomeProvider>(context, listen: false).loadCategories();
   }
 
   @override
@@ -44,17 +43,17 @@ class _NavBarPageState extends State<NavBarPage> {
     loadDrawer();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-
       body: PageView(
         controller: pageController,
         children: pages,
         onPageChanged: onPageChange,
       ),
       bottomNavigationBar: SizedBox(
-        height: MediaQuery.of(context).size.height *0.1,
+        height: MediaQuery.of(context).size.height * 0.1,
         child: BottomAppBar(
           color: blackDark,
           child: Column(
@@ -69,43 +68,62 @@ class _NavBarPageState extends State<NavBarPage> {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   InkWell(
-                    onTap:  (){
+                    onTap: () {
                       setState(() {
-                        selectedItem=0;
+                        selectedItem = 0;
                         pageController.jumpToPage(selectedItem);
                       });
                     },
-                    child: Image.asset("assets/Home.png",height: 35,width: 35,),
-                  ),InkWell(
-                    onTap:  (){
-                      setState(() {
-                        selectedItem=1;
-                        pageController.jumpToPage(selectedItem);
-                      });
-                    },
-                    child: Image.asset("assets/BibleScripture.png",height: 35,width: 35,),
-                  ), InkWell(
-                    onTap:  (){
-                      setState(() {
-                        selectedItem=2;
-                        pageController.jumpToPage(selectedItem);
-                      });
-                    },
-                    child: Image.asset("assets/Find-Church.png",height: 35,width: 35,),
-                  ), InkWell(
-                    onTap:  (){
-                      setState(() {
-                        selectedItem=3;
-                        pageController.jumpToPage(selectedItem);
-                      });
-                    },
-                    child: Image.asset("assets/SOD.png",height: 35,width: 35,),
+                    child: Image.asset(
+                      "assets/Home.png",
+                      height: 35,
+                      width: 35,
+                    ),
                   ),
-
-
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedItem = 1;
+                        pageController.jumpToPage(selectedItem);
+                      });
+                    },
+                    child: Image.asset(
+                      "assets/BibleScripture.png",
+                      height: 35,
+                      width: 35,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedItem = 2;
+                        pageController.jumpToPage(selectedItem);
+                      });
+                    },
+                    child: Image.asset(
+                      "assets/Find-Church.png",
+                      height: 35,
+                      width: 35,
+                    ),
+                  ),
+                  InkWell(
+                    onTap: () {
+                      setState(() {
+                        selectedItem = 3;
+                        pageController.jumpToPage(selectedItem);
+                      });
+                    },
+                    child: Image.asset(
+                      "assets/SOD.png",
+                      height: 35,
+                      width: 35,
+                    ),
+                  ),
                 ],
               ),
-              SizedBox(height: 1,)
+              SizedBox(
+                height: 1,
+              )
             ],
           ),
         ),

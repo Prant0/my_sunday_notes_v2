@@ -58,19 +58,21 @@ class _CustomDrawerState extends State<CustomDrawer> {
       title: Text(obje.title),
     );
   }
-
+  List<CategoryModel> newCategories = [];
+  List<CategoryModel> oldCategories = [];
   updateCategories() {
     allCategories.sort((a, b) {
       return a.title.toLowerCase().compareTo(b.title.toLowerCase());
     });
 
-    List<CategoryModel> newCategories = [];
-    List<CategoryModel> oldCategories = [];
+
 
     for (int i = 0; i < allCategories.length; i++) {
+
       newArray.contains(allCategories[i].title)
           ? newCategories.add(allCategories[i])
           : oldCategories.add(allCategories[i]);
+
     }
 
     List<Widget> aToe = [];
@@ -217,6 +219,8 @@ class _CustomDrawerState extends State<CustomDrawer> {
         }
       }*/
     });
+    print("length iss ${oldCategories.length}");
+    print("new iss ${newCategories.length}");
   }
 
   @override
