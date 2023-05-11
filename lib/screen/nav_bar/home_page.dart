@@ -23,7 +23,7 @@ class _HomePageState extends State<HomePage> {
       isLoading = true;
     });
     await Provider.of<HomeProvider>(context, listen: false).getSODData(
-      10,
+      15,
     );
     if (mounted) {
       setState(() {
@@ -46,8 +46,8 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     // TODO: implement initState
-    loadSODData();
-    loadAllChurchData();
+    //loadSODData();
+   // loadAllChurchData();
 
     controller.addListener(() {
       if (controller.position.maxScrollExtent == controller.offset) {
@@ -165,7 +165,7 @@ class _HomePageState extends State<HomePage> {
                       churchList.isNotEmpty
                           ? Container(
                               margin: EdgeInsets.only(top: 10),
-                              height: 150,
+                              height: 200,
                               width: double.infinity,
                               color: grayClr,
                               child: Column(
@@ -180,7 +180,7 @@ class _HomePageState extends State<HomePage> {
                                         MainAxisAlignment.spaceAround,
                                     children: [
                                       SizedBox(
-                                        height: 120,
+                                        height: 160,
                                         width:
                                             MediaQuery.of(context).size.width *
                                                 0.75,
@@ -232,6 +232,18 @@ class _HomePageState extends State<HomePage> {
                                                       ),
                                                       Text(
                                                         "${churchList[index].firstname ?? ""}",
+                                                        maxLines: 2,
+                                                        textAlign:
+                                                            TextAlign.center,
+                                                        style: TextStyle(
+                                                            fontSize: 14,
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            overflow:
+                                                                TextOverflow
+                                                                    .ellipsis),
+                                                      ),  Text(
+                                                        "${churchList[index].bio ?? ""}",
                                                         maxLines: 2,
                                                         textAlign:
                                                             TextAlign.center,

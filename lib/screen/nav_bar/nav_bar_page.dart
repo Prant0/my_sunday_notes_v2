@@ -9,6 +9,7 @@ import 'package:provider/provider.dart';
 import '../../provider/home_provider.dart';
 
 class NavBarPage extends StatefulWidget {
+
   const NavBarPage({Key? key}) : super(key: key);
 
   @override
@@ -20,9 +21,9 @@ class _NavBarPageState extends State<NavBarPage> {
   PageController pageController = PageController();
   List<Widget> pages = [
     HomePage(),
-    BookPage(),
+    CategoriesPage(id: 1),
     FindChurchPage(),
-    CategoriesPage()
+    CategoriesPage(id: 2,)
   ];
 
   void onPageChange(int index) {
@@ -31,16 +32,11 @@ class _NavBarPageState extends State<NavBarPage> {
     });
   }
 
-  loadDrawer() async {
-    await Provider.of<HomeProvider>(context, listen: false)
-        .loadDrawerCategories();
-   await Provider.of<HomeProvider>(context, listen: false).loadCategories();
-  }
 
   @override
   void initState() {
     // TODO: implement initState
-    loadDrawer();
+
     super.initState();
   }
 

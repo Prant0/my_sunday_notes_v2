@@ -1,13 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:mysundaynotes/model/category_model.dart';
 import 'package:mysundaynotes/screen/author_sod_page.dart';
+import 'package:mysundaynotes/screen/drawer/scripture_page.dart';
 import 'package:mysundaynotes/screen/nav_bar/sub_categories_show.dart';
 import 'package:mysundaynotes/widget/widget.dart';
 
 class CategoriesShow extends StatelessWidget {
   List<CategoryModel> categories;
+  int id;
 
-  CategoriesShow({Key? key, required this.categories}) : super(key: key);
+  CategoriesShow({Key? key,required this.id, required this.categories}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -36,11 +38,12 @@ class CategoriesShow extends StatelessWidget {
               shrinkWrap: true,
               itemCount: categories.length,
               itemBuilder: (context, index) {
-                print("id isssssssss${categories[index].id}");
+                print("id issssssssssssssssssssssssssssssssssssssssss${categories[index].id}");
                 return InkWell(
                   onTap: () {
                     Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) => Sub_Categories_Show(
+                        builder: (context) =>id==1?scriptureActivity( categories[index].id,
+                           categories[index].title,): Sub_Categories_Show(
                           id: int.parse(categories[index].id.toString()),
                           title: categories[index].title,
                         )));

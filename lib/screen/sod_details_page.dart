@@ -68,7 +68,7 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
       ),
       body: Container(
         width: double.infinity,
-        child: location != null
+        child: userModel != null
             ? SingleChildScrollView(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,7 +91,7 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
                           style: Theme.of(context).textTheme.titleLarge,
                         ),
                         Text(
-                          "${userModel!.bio}",
+                          "${userModel!.first_name }",
                           style: Theme.of(context).textTheme.titleMedium,
                         ),
                         SizedBox(
@@ -106,7 +106,7 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("${userModel!.first_name ?? ""}",
+                          Text("${userModel!.bio ?? ""}",
                               style: myStyle(
                                   tSmall, yellowLight, FontWeight.w700)),
                           Text("" + userModel!.service_time,
@@ -135,17 +135,10 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
                       color: Colors.white,
 
 
-                     child:  WebView(
-                        initialUrl: Uri.dataFromString('''
-  <html>
-    <body>
-      <iframe width="100%" height="100%" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" 
-        src="$location">
-      </iframe>
-    </body>
-  </html>
-''', mimeType: 'text/html').toString(),
-                      ),
+                     child: WebView(
+                       initialUrl: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1824.1690130978027!2d90.37937367635081!3d23.8776294055078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c40c08ed0ed5%3A0x1a173592e25d9897!2sNalbhog%2C%20Dhaka%201230!5e0!3m2!1sen!2sbd!4v1683742290384!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
+                       javascriptMode: JavascriptMode.disabled,
+                     )
                     ),
                     Container(
                       alignment: Alignment.center,
@@ -309,11 +302,11 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
 
   loadUserData() {
     String id = widget.sodModel.id.toString();
-    print("xp $id");
     setState(() {
       isLoading = true;
     });
-    CustomHttpRequest.loadUserData({'post_id': id}).then((value) {
+    CustomHttpRequest.loadUserData({'post_id': widget.sodModel.id}).then((value) {
+      print("idddddddddddddddddddddddddddddds$id");
       var jsonObject = jsonDecode(value.body.toString());
 
       UserModel userMeta = UserModel(
@@ -336,7 +329,7 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
           location = jsonObject["google_map"];
           jsonData = jsonObject['data'];
           userModel = userMeta;
-          print("id isssssssssssssssssssssssssss${location}");
+          print("id isssssssssssssssssssssssssssw${location}");
         });
       }
     });
@@ -346,6 +339,10 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
   var jsonData = {};
   String? location;
   bool isLoading = false;
+  String mapApi="https://maps.googleapis.com/maps/api/js?key=AIzaSyDNUwtuLtM8qL4qXQv-G_9TLELbmrWV27g&sensor=false";
+String keyy="AIzaSyDNUwtuLtM8qL4qXQv-G_9TLELbmrWV27g";
+ String l="www.google.com/maps/embed?pb=!1m14!1m8!1m3!1d13263.278409875657!2d-117.9127986!3d33.7911564!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe054023f9e6b5072!2sMySundayNotes!5e0!3m2!1sen!2sbd!4v1675400171516!5m2!1sen!2sbd";
+String r="!1m14!1m8!1m3!1d13263.278409875657!2d-117.9127986!3d33.7911564!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe054023f9e6b5072!2sMySundayNotes!5e0!3m2!1sen!2sbd!4v1675400171516!5m2!1sen!2sbd";
 
-
+String x="https://www.google.com/maps/embed/v1/place?q=place_id:!1m14!1m8!1m3!1d13263.278409875657!2d-117.9127986!3d33.7911564!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0xe054023f9e6b5072!2sMySundayNotes!5e0!3m2!1sen!2sbd!4v1675400171516!5m2!1sen!2sbd&key=AIzaSyDNUwtuLtM8qL4qXQv-G_9TLELbmrWV27g";
 }

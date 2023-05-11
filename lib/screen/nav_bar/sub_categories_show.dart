@@ -7,7 +7,7 @@ import 'dart:convert';
 import 'package:mysundaynotes/widget/widget.dart';
 
 class Sub_Categories_Show extends StatefulWidget {
-  dynamic? id;
+  int ? id;
 
   String? title = "";
     Sub_Categories_Show({Key? key,this.title,this.id}) : super(key: key);
@@ -57,7 +57,6 @@ class _Sub_Categories_ShowState extends State<Sub_Categories_Show> {
             c_date:  elem['x_metadata']['c_date'].toString(),
             c_day: elem['x_metadata']['c_day'].toString());
         var link = elem["link"];
-        //  print("link isssssssssssssssss$link");
         linkList.add(link);
         allObjects.add(obj);
       }

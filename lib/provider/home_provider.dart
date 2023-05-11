@@ -27,7 +27,7 @@ class HomeProvider with ChangeNotifier {
   Future<dynamic> getSODData(
     int limit,
   ) async {
-    //  allSODData=await CustomHttpRequest.loadSODData(limit, page);
+
     final responce = await CustomHttpRequest.loadSODData(limit, pageNo);
     var data = json.decode(responce.body.toString());
 
@@ -57,8 +57,6 @@ class HomeProvider with ChangeNotifier {
     } else {
       print("No link found");
     }
-
-    //  allSODData.addAll(await CustomHttpRequest.loadSODData(limit, pageNo));
     notifyListeners();
     print("Total length of all sod is ${allSODData.length}");
   }
@@ -66,13 +64,11 @@ class HomeProvider with ChangeNotifier {
   getAllChurchData(
     int limit,
   ) async {
-    //allChurchList.addAll(await CustomHttpRequest.loadAllChurchData(limit, page)) ;
-    // final responce = await CustomHttpRequest.loadAllChurchData(limit, churchNo);
+
     churchLength = allChurchList.length;
     CustomHttpRequest.loadAllChurchData(limit, churchNo).then((value) {
       var elem = json.decode(value.body);
-      print(
-          "All church data areeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee ${value.body}");
+
       for (var i in elem) {
         Authors auth = Authors(
           id: i['id'].toString(),
@@ -109,13 +105,12 @@ class HomeProvider with ChangeNotifier {
     sidebarCats = [];
     CustomHttpRequest.loadSidebarCategories({}).then((value) {
       var jsonData = json.decode(value.body.toString());
-      print("Drawer option areeeeeeeeeeeeeeeeeeeee$jsonData");
+
       for (var element in jsonData) {
         CategoryModel cat = new CategoryModel();
         cat.id = element['ID'].toString();
         cat.title = element['post_title'].toString();
-        //cat.fromJson(element);
-        print("drawer titleeee ${cat.title}");
+
         sidebarCats.add(cat);
       }
     });
@@ -124,7 +119,7 @@ class HomeProvider with ChangeNotifier {
   List<CategoryModel> allCategories = [];
 
   loadCategories() {
-    CustomHttpRequest.loadCategories(100,1).then((value) {
+    CustomHttpRequest.loadCategories(100, 1).then((value) {
       var jsonData = json.decode(value.body.toString());
       for (var element in jsonData) {
         CategoryModel cat = new CategoryModel();
@@ -133,9 +128,6 @@ class HomeProvider with ChangeNotifier {
       }
 
       notifyListeners();
-
     });
   }
-
-
 }

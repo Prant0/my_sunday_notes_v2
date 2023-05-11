@@ -11,7 +11,8 @@ import 'package:mysundaynotes/widget/widget.dart';
 import 'package:provider/provider.dart';
 
 class CategoriesPage extends StatefulWidget {
-  const CategoriesPage({Key? key}) : super(key: key);
+  int id;
+  CategoriesPage({Key? key,required this.id}) : super(key: key);
 
   @override
   _CategoriesPageState createState() => _CategoriesPageState();
@@ -77,7 +78,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
   @override
   void initState() {
 
-   allCategories=Provider.of<HomeProvider>(context,listen: false).allCategories;
+   allCategories=widget.id==1? Provider.of<HomeProvider>(context,listen: false).sidebarCats:Provider.of<HomeProvider>(context,listen: false).allCategories;
     updateCategories();
 
   }
@@ -122,7 +123,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
           children: [
             InkWell(
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesShow(categories: oldCategories)));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesShow(categories: oldCategories,id: widget.id)));
               },
               child: Container(
                 width: double.infinity,
@@ -130,7 +131,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 margin: EdgeInsets.all(20),
                 height: MediaQuery.of(context).size.height * 0.28,
                 child: Text(
-                  "OLD Testament",
+                  widget.id==1?"OLD Books":"OLD Testament",
                   style: myStyle(35, yellowDark, FontWeight.w700),
                 ),
                 decoration: BoxDecoration(
@@ -144,7 +145,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
             
             InkWell(
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesShow(categories: newCategories)));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesShow(categories: newCategories,id: widget.id,)));
               },
               child: Container(
                 width: double.infinity,
@@ -152,7 +153,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                 margin: EdgeInsets.all(20),
                 height: MediaQuery.of(context).size.height * 0.28,
                 child: Text(
-                  "New Testament",
+                  widget.id==1?"New Books":  "New Testament",
                   style: myStyle(35, yellowDark, FontWeight.w700),
                 ),
                 decoration: BoxDecoration(

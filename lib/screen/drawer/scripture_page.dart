@@ -30,14 +30,15 @@ class _scriptureActivity extends State<scriptureActivity> {
 
   loadData(){
     allElems = [];
+    print(" id issssssssssssssssssss${widget.id}");
     var elem = {
       "parent_id": widget.id
     };
     CustomHttpRequest.loadScriptures(widget.id).then((value) {
-      print(value.body.toString());
+      print("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr${value.body.toString()}");
       var jsonData = json.decode(value.body.toString());
       //this.selectedTitle = jsonData['title']['rendered'].toString();
-      this.selectedTitle = jsonData['title']['rendered'].toString();
+      this.selectedTitle = jsonData['title']['rendered'].toString()??"";
       this.selectedURL = selectedTitle.replaceAll(" ", "-")+'-summary';//jsonData['link'].toString();
       selectedTitle=selectedTitle+" Summary";
       //selectedURL = selectedURL.replaceAll("https://", "https://app.");

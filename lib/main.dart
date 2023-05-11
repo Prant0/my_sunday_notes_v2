@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
 import 'package:mysundaynotes/screen/nav_bar/nav_bar_page.dart';
 import 'package:mysundaynotes/screen/sod_details_page.dart';
+import 'package:mysundaynotes/screen/splash_screen.dart';
 import 'package:mysundaynotes/widget/widget.dart';
 import 'package:provider/provider.dart';
 
@@ -61,7 +62,7 @@ class MyApp extends StatelessWidget {
             titleSmall:  myStyle(tSmall,yellowDark,FontWeight.w600),
           )
         ),
-        home: NavBarPage()
+        home: SplashScreen()
       ),
     );
   }
