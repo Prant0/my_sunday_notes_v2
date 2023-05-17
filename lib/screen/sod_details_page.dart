@@ -8,6 +8,7 @@ import 'package:mysundaynotes/http_request/custom_http_request.dart';
 import 'package:mysundaynotes/model/sod_model.dart';
 import 'package:mysundaynotes/model/user_model.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
+import 'package:mysundaynotes/screen/web_view_activity.dart';
 import 'package:mysundaynotes/widget/widget.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:provider/provider.dart';
@@ -130,15 +131,30 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
                         style: myStyle(tSmall, blackDark),
                       ),
                     ),
+
                     Container(
-                      height: 120,
-                      color: Colors.white,
+                        height: 250,
+                        width: double.infinity,
 
+                        child: Stack(
+                          children: [
+                            WebView(
+                              initialUrl: Uri.dataFromString('<html><body><iframe width="100%" height="100%" frameborder="0" allowfullscreen src="${location}"></iframe></body></html>', mimeType: 'text/html',).toString(),
+                              javascriptMode: JavascriptMode.unrestricted,
+                              zoomEnabled: false,
+                              gestureNavigationEnabled: true,
 
-                     child: WebView(
-                       initialUrl: '<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d1824.1690130978027!2d90.37937367635081!3d23.8776294055078!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3755c40c08ed0ed5%3A0x1a173592e25d9897!2sNalbhog%2C%20Dhaka%201230!5e0!3m2!1sen!2sbd!4v1683742290384!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>',
-                       javascriptMode: JavascriptMode.disabled,
-                     )
+                            ),
+                            Positioned(child: InkWell(
+                              onTap: (){
+                                print("ssssssssssssssssssssssssssss");
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>WebViewActivity(
+                                    Uri.dataFromString('<html><body><iframe width="100%" height="100%" frameborder="0" allowfullscreen src="${location}"></iframe></body></html>', mimeType: 'text/html',).toString()
+                                )));
+                              },
+                            ))
+                          ],
+                        )
                     ),
                     Container(
                       alignment: Alignment.center,
