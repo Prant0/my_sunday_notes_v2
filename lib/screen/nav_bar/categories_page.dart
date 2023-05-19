@@ -125,43 +125,102 @@ class _CategoriesPageState extends State<CategoriesPage> {
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesShow(categories: oldCategories,id: widget.id)));
               },
-              child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                margin: EdgeInsets.all(20),
-                height: MediaQuery.of(context).size.height * 0.28,
-                child: Text(
-                  widget.id==1?"OLD Books":"OLD Testament",
-                  style: myStyle(35, yellowDark, FontWeight.w700),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS7uYTAATnDRZFIycfuevfXXzAGREG89LNLM373pVcjxFDw4tJnzKW3nyjo78lLiTk6qZk&usqp=CAU"),
-                        fit: BoxFit.cover)),
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.all(20),
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    child: Text(
+                      widget.id==1?"OLD Testament":"SOD Studies",
+                style: TextStyle(
+                        inherit: true,
+                        fontSize: 35.0,
+                        fontWeight: FontWeight.w800,
+                        color: yellowDark,
+                        shadows: [
+                          Shadow( // bottomLeft
+                              offset: Offset(-1.5, -1.5),
+                              color: blackLight
+                          ),
+                          Shadow( // bottomRight
+                              offset: Offset(1.5, -1.5),
+                              color: blackLight
+                          ),
+                          Shadow( // topRight
+                              offset: Offset(1.5, 5.5),
+                              color: blackLight
+                          ),
+                          Shadow( // topLeft
+                              offset: Offset(-1.5, 1.5),
+                              color: blackLight
+                          ),
+                        ]
+                    ),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                            image: AssetImage("assets/old1.png"),fit: BoxFit.fill
+                            )),
+                  ),
+                  Positioned(child: Text(widget.id==1? "":"Old Testament",style:Theme.of(context).textTheme.titleMedium),
+                    top: 30,
+                    right: 35,
+                  )
+                ],
               ),
             ),
-            
+            SizedBox(height: 30,),
             InkWell(
               onTap: (){
                 Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesShow(categories: newCategories,id: widget.id,)));
               },
-              child: Container(
-                width: double.infinity,
-                alignment: Alignment.center,
-                margin: EdgeInsets.all(20),
-                height: MediaQuery.of(context).size.height * 0.28,
-                child: Text(
-                  widget.id==1?"New Books":  "New Testament",
-                  style: myStyle(35, yellowDark, FontWeight.w700),
-                ),
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(20),
-                    image: DecorationImage(
-                        image: NetworkImage(
-                            "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcS8p48xzy332bgmAx4JJnK_9v8fg9W-m-TcEpfFot8yw-3LuG784Mj39XnvOE8BeErrRwA&usqp=CAU"),
-                        fit: BoxFit.cover)),
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    alignment: Alignment.center,
+                    margin: EdgeInsets.all(20),
+                    height: MediaQuery.of(context).size.height * 0.25,
+                    child: Text(
+                      widget.id==1?"New Testament":  "SOD Studies",
+                      style: TextStyle(
+                          inherit: true,
+                          fontSize: 35.0,
+                          fontWeight: FontWeight.w800,
+                          color: yellowDark,
+                          shadows: [
+                            Shadow( // bottomLeft
+                                offset: Offset(-1.5, -1.5),
+                                color: blackLight
+                            ),
+                            Shadow( // bottomRight
+                                offset: Offset(1.5, -1.5),
+                                color: blackLight
+                            ),
+                            Shadow( // topRight
+                                offset: Offset(1.5, 5.5),
+                                color: blackLight
+                            ),
+                            Shadow( // topLeft
+                                offset: Offset(-1.5, 1.5),
+                                color: blackLight
+                            ),
+                          ]
+                      ),
+                    ),
+                    decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        image: DecorationImage(
+                            image: AssetImage("assets/new1.png"),fit: BoxFit.fill)),
+                  ),
+                  Positioned(child: Text(widget.id==1? "":"New Testament",style:Theme.of(context).textTheme.titleMedium),
+                    bottom: 30,
+                    right: 35,
+                  )
+                ],
               ),
             ),
           ],

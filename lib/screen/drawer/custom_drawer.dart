@@ -232,7 +232,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: MediaQuery.of(context).size.width *0.65,
+      width: MediaQuery.of(context).size.width *0.70,
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(

@@ -43,7 +43,7 @@ class _NavBarPageState extends State<NavBarPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: PageView(
+      body: PageView(physics: NeverScrollableScrollPhysics(),
         controller: pageController,
         children: pages,
         onPageChanged: onPageChange,
@@ -51,6 +51,7 @@ class _NavBarPageState extends State<NavBarPage> {
       bottomNavigationBar: SizedBox(
         height: MediaQuery.of(context).size.height * 0.1,
         child: BottomAppBar(
+
           color: blackDark,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -96,11 +97,7 @@ class _NavBarPageState extends State<NavBarPage> {
                         pageController.jumpToPage(selectedItem);
                       });
                     },
-                    child: Image.asset(
-                      "assets/Find-Church.png",
-                      height: 35,
-                      width: 35,
-                    ),
+                    child: Icon(Icons.person_search,color: yellowDark,size: 38,),
                   ),
                   InkWell(
                     onTap: () {

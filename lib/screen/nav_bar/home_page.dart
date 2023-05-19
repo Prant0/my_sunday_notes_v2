@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_html/flutter_html.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
 import 'package:mysundaynotes/screen/author_sod_page.dart';
 import 'package:mysundaynotes/screen/drawer/custom_drawer.dart';
@@ -47,7 +46,7 @@ class _HomePageState extends State<HomePage> {
   void initState() {
     // TODO: implement initState
     //loadSODData();
-   // loadAllChurchData();
+    // loadAllChurchData();
 
     controller.addListener(() {
       if (controller.position.maxScrollExtent == controller.offset) {
@@ -67,13 +66,11 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     var sodData = Provider.of<HomeProvider>(context).allSODData;
     var churchList = Provider.of<HomeProvider>(context).allChurchList;
-   // var drawerList = Provider.of<HomeProvider>(context).sidebarCats;
+    // var drawerList = Provider.of<HomeProvider>(context).sidebarCats;
     return SafeArea(
       child: Scaffold(
         key: _scaffoldKey,
-        drawer: CustomDrawer(
-
-        ),
+        drawer: CustomDrawer(),
         body: Container(
           padding: EdgeInsets.symmetric(horizontal: bodyPadding),
           width: double.infinity,
@@ -148,7 +145,7 @@ class _HomePageState extends State<HomePage> {
                             style: myStyle(30, blackDark, FontWeight.bold),
                             children: <TextSpan>[
                               TextSpan(
-                                  text: 'Scriptire',
+                                  text: 'Scriptures',
                                   style: myStyle(30, blackLight)),
                             ],
                           ),
@@ -157,7 +154,7 @@ class _HomePageState extends State<HomePage> {
                         decoration: BoxDecoration(
                           image: DecorationImage(
                               image: AssetImage(
-                                "assets/bibleScriptures.jpg",
+                                "assets/homebg.png",
                               ),
                               fit: BoxFit.cover),
                         ),
@@ -167,120 +164,116 @@ class _HomePageState extends State<HomePage> {
                               margin: EdgeInsets.only(top: 10),
                               height: 200,
                               width: double.infinity,
-                              color: grayClr,
+                              color: yellowLight,
                               child: Column(
                                 //mainAxisAlignment: MainAxisAlignment.spaceAround,
                                 children: [
-                                  Text(
-                                    "Find Church",
-                                    style: myStyle(25, blackDark),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(vertical: 6),
+                                    child: Text(
+                                      "Find Church & Pastor",
+                                      style: myStyle(22, blackDark,FontWeight.w800),
+                                    ),
                                   ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceAround,
-                                    children: [
-                                      SizedBox(
-                                        height: 160,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                0.75,
-                                        child: ListView.builder(
-                                            scrollDirection: Axis.horizontal,
-                                            shrinkWrap: true,
-                                            itemCount: 3,
-                                            itemBuilder: (context, index) {
-                                              return InkWell(
-                                                onTap: () {
-                                                  Navigator.of(context).push(
-                                                      MaterialPageRoute(
-                                                          builder:
-                                                              (context) =>
-                                                                  AuthorSodPage(
-                                                                    id: int.parse(
-                                                                        churchList[index]
-                                                                            .id
-                                                                            .toString()),
-                                                                    title: churchList[
-                                                                            index]
-                                                                        .firstname,
-                                                                  )));
-                                                },
-                                                child: SizedBox(
-                                                  width: MediaQuery.of(context)
-                                                          .size
-                                                          .width *
-                                                      0.25,
-                                                  child: Column(
-                                                    children: [
-                                                      CircleAvatar(
-                                                        radius: 35,
-                                                        child: ClipRRect(
-                                                          child: Container(
-                                                              child: Image.network(
-                                                                  churchList[
-                                                                          index]
-                                                                      .avatar_thumb
-                                                                      .toString())),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(
-                                                                      50.0),
-                                                        ),
+                                  Container(
+                                    height: 150,
+                                    padding: EdgeInsets.only(left: 4),
+
+                                    child: SingleChildScrollView(
+                                      scrollDirection: Axis.horizontal,
+                                      child: Row(
+                                        children: [
+                                          ListView.builder(
+                                              scrollDirection: Axis.horizontal,
+                                              shrinkWrap: true,
+                                              itemCount: 5,
+                                              itemBuilder: (context, index) {
+                                                return InkWell(
+                                                  onTap: () {
+                                                    Navigator.of(context).push(
+                                                        MaterialPageRoute(
+                                                            builder:
+                                                                (context) =>
+                                                                    AuthorSodPage(
+                                                                      id: int.parse(
+                                                                          churchList[index]
+                                                                              .id
+                                                                              .toString()),
+                                                                      title: churchList[
+                                                                              index]
+                                                                          .firstname,
+                                                                    )));
+                                                  },
+                                                  child: Card(
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius: BorderRadius.circular(16 )
+                                                    ),
+                                                     color: blackLight,
+                                                    child: Padding(
+                                                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                                                      child: Column(
+                                                        mainAxisAlignment: MainAxisAlignment.center,
+                                                        children: [
+                                                          CircleAvatar(
+                                                            radius: 35,
+                                                            child: ClipRRect(
+                                                              child: Container(
+                                                                  child: Image.network(
+                                                                      churchList[
+                                                                              index]
+                                                                          .avatar_thumb
+                                                                          .toString())),
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          50.0),
+                                                            ),
+                                                          ),
+                                                          SizedBox(
+                                                            height: 5,
+                                                          ),
+                                                          Text(
+                                                            "${churchList[index].firstname ?? ""}",
+                                                            maxLines: 2,
+                                                            textAlign:
+                                                                TextAlign.center,
+                                                            style: myStyle(16,yellowDark,FontWeight.w700)
+                                                          ),
+                                                          Text(
+                                                            "${churchList[index].bio ?? ""}",
+                                                            maxLines: 2,
+                                                            textAlign:
+                                                                TextAlign.center,
+                                                         style: myStyle(16,grayClr, )
+                                                          ),
+                                                        ],
                                                       ),
-                                                      SizedBox(
-                                                        height: 5,
-                                                      ),
-                                                      Text(
-                                                        "${churchList[index].firstname ?? ""}",
-                                                        maxLines: 2,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis),
-                                                      ),  Text(
-                                                        "${churchList[index].bio ?? ""}",
-                                                        maxLines: 2,
-                                                        textAlign:
-                                                            TextAlign.center,
-                                                        style: TextStyle(
-                                                            fontSize: 14,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            overflow:
-                                                                TextOverflow
-                                                                    .ellipsis),
-                                                      ),
-                                                    ],
+                                                    ),
                                                   ),
+                                                );
+                                              }),
+                                          InkWell(
+                                            onTap: () {
+                                              Navigator.of(context).push(
+                                                  MaterialPageRoute(
+                                                      builder: (context) =>
+                                                          FindChurchPage()));
+                                            },
+                                            child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                Icon(
+                                                  Icons.arrow_forward,
+                                                  size: 44,
+                                                  color: blackDark,
                                                 ),
-                                              );
-                                            }),
-                                      ),
-                                      InkWell(
-                                        onTap: () {
-                                          Navigator.of(context).push(
-                                              MaterialPageRoute(
-                                                  builder: (context) =>
-                                                      FindChurchPage()));
-                                        },
-                                        child: Column(
-                                          mainAxisSize: MainAxisSize.min,
-                                          children: [
-                                            Icon(
-                                              Icons.arrow_forward,
-                                              size: 44,
-                                              color: blackDark,
+                                                Text("See all")
+                                              ],
                                             ),
-                                            Text("See all")
-                                          ],
-                                        ),
+                                          ),
+                                        ],
                                       ),
-                                    ],
+                                    ),
                                   )
                                 ],
                               ),
@@ -319,92 +312,78 @@ class _HomePageState extends State<HomePage> {
                                     vertical: 6, horizontal: 8),
                                 child: Row(
                                   children: [
-                                    Expanded(
-                                      child: Container(
-                                        height: 90,
-                                        child: Image(
-                                          image: NetworkImage(
-                                              sodData[index].guid.toString()),
-                                          fit: BoxFit.fill,
-                                          errorBuilder: (context, exception,
-                                                  stackTrack) =>
-                                              Image(
-                                            image: AssetImage(
-                                                'assets/placeholder.png'),
-                                            fit: BoxFit.cover,
-                                            width: double.infinity,
-                                          ),
+                                    Container(
+                                      height: 100,
+                                      width: MediaQuery.of(context).size.width *
+                                          0.30,
+                                      child: Image(
+                                        image: NetworkImage(
+                                            sodData[index].guid.toString()),
+                                        fit: BoxFit.fill,
+                                        errorBuilder:
+                                            (context, exception, stackTrack) =>
+                                                Image(
+                                          image: AssetImage(
+                                              'assets/placeholder.png'),
+                                          fit: BoxFit.cover,
+                                          width: double.infinity,
                                         ),
                                       ),
-                                      flex: 3,
                                     ),
                                     SizedBox(
                                       width: 10,
                                     ),
                                     Expanded(
-                                      child: Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: [
-                                          Text("  ${sodData[index].post_title}",
+                                      flex: 4,
+                                      child: Container(
+                                        margin:
+                                            EdgeInsets.only(left: 4, right: 10),
+                                        child: Column(
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            Text(
+                                                sodData[index]
+                                                    .post_title
+                                                    .toString(),
+                                                style: myStyle(
+                                                    18,
+                                                    textColors[index %
+                                                        textColors.length],
+                                                    FontWeight.bold)),
+                                            SizedBox(
+                                              height: 5,
+                                            ),
+                                            Text(
+                                              parseHtmlString(sodData[index]
+                                                  .post_content
+                                                  .toString())!,
                                               style: myStyle(
-                                                  18,
+                                                  16,
                                                   textColors[index %
                                                       textColors.length],
-                                                  FontWeight.w800)),
-                                          Html(
-                                            data:
-                                                "${sodData[index].post_content}",
-                                            style: {
-                                              'html': Style(
-                                                  height: 65,
-                                                  padding: EdgeInsets.all(0),
-                                                  color: textColors[index %
-                                                      textColors.length],
-                                                  fontSize: FontSize.large,
-                                                  fontWeight: FontWeight.w600,
-                                                  maxLines: 2),
-                                              'h1': Style(
+                                                  FontWeight.w500),
+                                              maxLines: 2,
+                                            ),
+                                            SizedBox(
+                                              height: 2,
+                                            ),
+                                            Text(
+                                              "" +
+                                                  postDateTime.month
+                                                      .toString() +
+                                                  "-" +
+                                                  postDateTime.day.toString() +
+                                                  "-" +
+                                                  postDateTime.year.toString(),
+                                              style: TextStyle(
                                                 color: textColors[
                                                     index % textColors.length],
                                               ),
-                                              'p': Style(
-                                                color: textColors[
-                                                    index % textColors.length],
-                                              ),
-                                            },
-                                          ),
-                                          Row(
-                                            children: [
-                                              SizedBox(
-                                                width: 10,
-                                              ),
-                                              Icon(
-                                                Icons.calendar_today,
-                                                size: 16,
-                                                color: Colors.red,
-                                              ),
-                                              Text(
-                                                  " " +
-                                                      postDateTime.month
-                                                          .toString() +
-                                                      "-" +
-                                                      postDateTime.day
-                                                          .toString() +
-                                                      "-" +
-                                                      postDateTime.year
-                                                          .toString(),
-                                                  style: myStyle(
-                                                      14,
-                                                      textColors[index %
-                                                          textColors.length],
-                                                      FontWeight.w800))
-                                            ],
-                                          ),
-                                        ],
-                                        crossAxisAlignment:
-                                            CrossAxisAlignment.start,
+                                            )
+                                          ],
+                                        ),
                                       ),
-                                      flex: 10,
                                     ),
                                   ],
                                 ),
@@ -427,14 +406,4 @@ class _HomePageState extends State<HomePage> {
       ),
     );
   }
-
-/*  String? _parseHtmlString(String htmlString) {
-    final document = parse(htmlString);
-    final String? parsedString =
-        parse(document.body?.text).documentElement?.text;
-
-    return parsedString;
-  }*/
-// df
-
 }

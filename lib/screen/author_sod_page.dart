@@ -5,6 +5,7 @@ import 'package:mysundaynotes/http_request/custom_http_request.dart';
 import 'package:mysundaynotes/model/sod_model.dart';
 import 'package:mysundaynotes/model/user_model.dart';
 import 'package:mysundaynotes/screen/sod_details_page.dart';
+import 'package:mysundaynotes/screen/web_view_activity.dart';
 import 'package:mysundaynotes/widget/widget.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
@@ -186,8 +187,13 @@ class _AuthorSodPageState extends State<AuthorSodPage> {
                         SizedBox(
                           height: 8,
                         ),
-                        Text("upcoming",
-                            style: myStyle(tSmall, grayClr, FontWeight.w700)),
+                        InkWell(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>WebViewActivity("https://mysundaynotes.com/profile/${userModel!.username}")));
+                          },
+                          child: Text("https://mysundaynotes.com/profile/${userModel!.username}",
+                              style: myStyle(14, grayClr, FontWeight.w700)),
+                        ),
                       ],
                     ),
                     Padding(
@@ -247,96 +253,72 @@ class _AuthorSodPageState extends State<AuthorSodPage> {
                                       sodModel: allObjects[index],allObjects: allObjects,)));
                             },
                             child: Container(
-
                               color: boxColors[index % boxColors.length],
                               padding: EdgeInsets.symmetric(
                                   vertical: 6, horizontal: 8),
                               child: Row(
                                 children: [
-                                  Expanded(
-                                    child: Container(
-                                      height: 90,
-                                      child:Image(
-                                        image: NetworkImage("${allObjects[index].guid}"),
-                                        fit: BoxFit.fill,
-                                        height: 120,
-                                        errorBuilder: (context, exception, stackTrack) => Image(
-                                          image: AssetImage('assets/placeholder.png'),
-                                          height: 100,
-                                        ),
-                                      ),
+                                  Container(
+                                    height: 100,
+                                    width: MediaQuery.of(context).size.width *0.30,
+                                    child: Image(
+                                      image: NetworkImage(
+                                          allObjects[index].guid.toString()),
+                                      fit: BoxFit.fill,
+                                      errorBuilder: (context, exception,
+                                          stackTrack) =>
+                                          Image(
+                                            image: AssetImage(
+                                                'assets/placeholder.png'),
+                                            fit: BoxFit.cover,
+                                            width: double.infinity,
+                                          ),
                                     ),
-                                    flex: 3,
                                   ),
                                   SizedBox(
                                     width: 10,
                                   ),
                                   Expanded(
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text("  ${allObjects[index].post_title}",
+                                    flex: 4,
+                                    child: Container(
+                                      margin: EdgeInsets.only(
+                                          left: 4, right: 10),
+                                      child: Column(
+                                        crossAxisAlignment: CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                              allObjects[index].post_title.toString(),
+                                              style: myStyle(
+                                                  18,
+                                                  textColors[index %
+                                                      textColors.length],
+                                                  FontWeight.bold)),
+                                          SizedBox(
+                                            height: 5,
+                                          ),
+                                          Text(parseHtmlString(
+                                              allObjects[index].post_content.toString())!,
                                             style: myStyle(
-                                                18,
-                                                textColors[
-                                                    index % textColors.length],
-                                                FontWeight.w800)),
+                                                16, textColors[index %
+                                                textColors.length],FontWeight.w500
+                                            ), maxLines: 2,),
+                                          SizedBox(
+                                            height: 2,
+                                          ),
+                                          Text("" +
+                                              postDateTime.month.toString() +
+                                              "-" +
+                                              postDateTime.day.toString() +
+                                              "-" +
+                                              postDateTime.year.toString(),
+                                            style: TextStyle(
+                                              color: textColors[index %
+                                                  textColors.length],
+                                            ),)
+                                        ],
+                                      ),
+                                    ),),
 
-                                        Html(data: "${ allObjects[index]
-                                            .post_content}",
-                                          style: {
-                                            'html': Style(
-                                                height: 65,
-
-                                                padding: EdgeInsets.all(0),
-                                                color:  textColors[
-                                                index % textColors.length],
-                                                fontSize: FontSize.large,
-                                                fontWeight: FontWeight.w600,
-                                                maxLines: 2
-                                            ),
-                                            'h1': Style(color: textColors[
-                                            index % textColors.length],),
-                                            'p': Style(color:  textColors[
-                                            index % textColors.length],),
-
-                                          },
-
-                                        ),
-
-
-                                        Row(
-                                          children: [
-                                            SizedBox(width: 10,),
-                                            Icon(
-                                              Icons.calendar_today,
-                                              size: 16,
-                                              color: Colors.red,
-                                            ),
-                                            Text(
-                                                " " +
-                                                    postDateTime.month
-                                                        .toString() +
-                                                    "-" +
-                                                    postDateTime.day
-                                                        .toString() +
-                                                    "-" +
-                                                    postDateTime.year
-                                                        .toString(),
-                                                style: myStyle(
-                                                    14,
-                                                    textColors[index %
-                                                        textColors.length],
-                                                    FontWeight.w800))
-                                          ],
-                                        ),
-                                      ],
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                    ),
-                                    flex: 10,
-                                  ),
                                 ],
                               ),
                             ),

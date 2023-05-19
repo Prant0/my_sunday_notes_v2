@@ -39,7 +39,7 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
       appBar: AppBar(
         //leading: Icon(Icons.arrow_back,color: yellowDark,),
         title: Text(
-          "The Title Church",
+          "${widget.sodModel.post_title}",
           style: Theme.of(context).textTheme.titleLarge,
         ),
         actions: [
@@ -98,8 +98,13 @@ class _SODDetailsPageState extends State<SODDetailsPage> {
                         SizedBox(
                           height: 8,
                         ),
-                        Text("upcoming",
-                            style: myStyle(tSmall, grayClr, FontWeight.w700)),
+                        InkWell(
+                          onTap: (){
+                            Navigator.of(context).push(MaterialPageRoute(builder: (context)=>WebViewActivity("https://mysundaynotes.com/profile/${userModel!.username}")));
+                          },
+                          child: Text("https://mysundaynotes.com/profile/${userModel!.username}",
+                              style: myStyle(tSmall, grayClr, FontWeight.w700)),
+                        ),
                       ],
                     ),
                     Padding(

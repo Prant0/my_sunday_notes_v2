@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:modal_progress_hud_nsn/modal_progress_hud_nsn.dart';
 import 'package:mysundaynotes/http_request/custom_http_request.dart';
 import 'package:mysundaynotes/model/author_model.dart';
+import 'package:mysundaynotes/screen/author_sod_page.dart';
 import 'package:mysundaynotes/widget/widget.dart';
 
 class SearchChurchList extends StatefulWidget {
@@ -17,9 +18,9 @@ class _SearchChurchListState extends State<SearchChurchList> {
     return ModalProgressHUD(
       inAsyncCall: isLoading,
       child: Scaffold(
-        backgroundColor: grayClr,
+        backgroundColor: yellowLight,
         appBar: AppBar(
-          backgroundColor: grayClr,
+          backgroundColor: yellowLight,
           leading: IconButton(
             onPressed: (){
               Navigator.of(context).pop();
@@ -34,47 +35,45 @@ class _SearchChurchListState extends State<SearchChurchList> {
           ),
         ),
         body: Container(
+          padding: EdgeInsets.symmetric(horizontal: 12),
           width: double.infinity,
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: TextField(
-                  focusNode: emailFocusNode,
-                  decoration: InputDecoration(
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-
-                    hintText: "Type search name",
-                  suffixIcon: IconButton(
-                    onPressed: (){
-                      setState(() {
-                        searchNode=[];
-                        searchController.clear();
-                      });
-                    },
-                    icon: Icon(Icons.cancel,color: blackDark,),
-                  )
+              TextField(
+                focusNode: emailFocusNode,
+                decoration: InputDecoration(
+                  focusedBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+                    borderRadius: BorderRadius.circular(12),
                   ),
-                  cursorColor: blackDark,
-                  textInputAction: TextInputAction.search,
-                  autocorrect: false,
-                  obscureText: false,
-                  style: myStyle(20,blackDark,FontWeight.w600),
-                  keyboardType: TextInputType.text,
-                  controller: searchController,
-                  onSubmitted: (search) {
-                    searchChurches(search);
-                  },
-                ),
-              ),
+                  enabledBorder: OutlineInputBorder(
+                    borderSide: BorderSide(color: Colors.blueGrey, width: 1.0),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
 
+                  hintText: "Type search name",
+                suffixIcon: IconButton(
+                  onPressed: (){
+                    setState(() {
+                      searchNode=[];
+                      searchController.clear();
+                    });
+                  },
+                  icon: Icon(Icons.cancel,color: blackDark,),
+                )
+                ),
+                cursorColor: blackDark,
+                textInputAction: TextInputAction.search,
+                autocorrect: false,
+                obscureText: false,
+                style: myStyle(20,blackDark,FontWeight.w600),
+                keyboardType: TextInputType.text,
+                controller: searchController,
+                onSubmitted: (search) {
+                  searchChurches(search);
+                },
+              ),
+SizedBox(height: 20,),
               Flexible(
                 child: GridView.builder(
 
@@ -88,36 +87,56 @@ class _SearchChurchListState extends State<SearchChurchList> {
                   itemBuilder: (context, index) {
                     return  InkWell(
                       onTap: () {
-
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => AuthorSodPage(
+                              id: int.parse(searchNode[index].id.toString()),
+                              title: searchNode[index].firstname,
+                            )));
                       },
-                      child: Container(
-                        margin: EdgeInsets.symmetric(horizontal: 8),
-                        child: Column(
-                          mainAxisAlignment:
-                          MainAxisAlignment.center,
-                          children: [
-                            CircleAvatar(
-                              maxRadius: 50,
-                              backgroundColor: Colors.transparent,
-                              child: ClipRRect(
-                                child: Image.network( searchNode[index].avatar_thumb.toString()),
-                                borderRadius: BorderRadius.circular(50.0),
+                      child:Card(
+                        shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(16 )
+                        ),
+                        color: blackLight,
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: 8),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              CircleAvatar(
+                                radius: 35,
+                                child: ClipRRect(
+                                  child: Container(
+                                      child: Image.network(
+                                          searchNode[
+                                          index]
+                                              .avatar_thumb
+                                              .toString())),
+                                  borderRadius:
+                                  BorderRadius
+                                      .circular(
+                                      50.0),
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: 5,
-                            ),
-                            Text("${searchNode[index].firstname ?? ""}",
-                                maxLines: 2,textAlign: TextAlign.center,
-                                style: myStyle(tMedium,blackDark,FontWeight.w800)),
-                            Align(
-                              alignment: Alignment.center,
-                              child:  Text("${searchNode[index].bio ?? ""}",
-                                  maxLines: 1,textAlign: TextAlign.center,
-                                  style: myStyle(tSmall,blackDark,FontWeight.bold)),
-                            ),
-
-                          ],
+                              SizedBox(
+                                height: 5,
+                              ),
+                              Text(
+                                  "${searchNode[index].firstname ?? ""}",
+                                  maxLines: 2,
+                                  textAlign:
+                                  TextAlign.center,
+                                  style: myStyle(18,yellowDark,FontWeight.w700)
+                              ),
+                              Text(
+                                  "${searchNode[index].bio ?? ""}",
+                                  maxLines: 1,
+                                  textAlign:
+                                  TextAlign.center,
+                                  style: myStyle(17,grayClr,FontWeight.w800 )
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     );

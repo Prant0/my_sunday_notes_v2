@@ -47,17 +47,7 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "Welcome",
-                  style: TextStyle(fontSize: 25, color: yellowDark),
-                ),
-                SizedBox(
-                  height: 8,
-                ),
-                Text(
-                  "MySundayNotes",
-                  style: myStyle(30, yellowDark, FontWeight.w900),
-                ),
+
                 SizedBox(
                   height: 30,
                 ),

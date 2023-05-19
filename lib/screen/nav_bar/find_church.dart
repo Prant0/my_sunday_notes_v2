@@ -23,9 +23,9 @@ class _FindChurchPageState extends State<FindChurchPage> {
     return Scaffold(
       key: _scaffoldKey,
       drawer: CustomDrawer(),
-      backgroundColor: grayClr,
+      backgroundColor: yellowLight,
       appBar: AppBar(
-        backgroundColor: grayClr,
+        backgroundColor: yellowLight,
         leading: IconButton(
           onPressed: (){
             _scaffoldKey.currentState!.openDrawer();
@@ -40,6 +40,7 @@ class _FindChurchPageState extends State<FindChurchPage> {
         ),
       ),
       body: Container(
+        padding: EdgeInsets.symmetric(horizontal: 8),
         child: Column(
           children: [
 
@@ -55,6 +56,7 @@ class _FindChurchPageState extends State<FindChurchPage> {
                 style: Theme.of(context).textTheme.titleLarge,
               ),
             ),
+            SizedBox(height: 10,),
             Flexible(
               child: GridView.builder(
                 controller: controller,
@@ -74,36 +76,50 @@ class _FindChurchPageState extends State<FindChurchPage> {
                                 title: churchList[index].firstname,
                               )));
                     },
-                    child: Container(
-                      margin: EdgeInsets.symmetric(horizontal: 8),
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            maxRadius: 50,
-                            backgroundColor: Colors.transparent,
-                            child: ClipRRect(
-                              child: Image.network(
-                                  churchList[index].avatar_thumb.toString()),
-                              borderRadius: BorderRadius.circular(50.0),
+                    child:Card(
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(16 )
+                      ),
+                      color: blackLight,
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 8),
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            CircleAvatar(
+                              radius: 35,
+                              child: ClipRRect(
+                                child: Container(
+                                    child: Image.network(
+                                        churchList[
+                                        index]
+                                            .avatar_thumb
+                                            .toString())),
+                                borderRadius:
+                                BorderRadius
+                                    .circular(
+                                    50.0),
+                              ),
                             ),
-                          ),
-
-                          Text("${churchList[index].firstname ?? ""}",
-                              maxLines: 2,
-                              textAlign: TextAlign.center,
-                              style:
-                                  myStyle(tMedium, blackDark, FontWeight.w800)),
-                          Align(
-                            alignment: Alignment.center,
-                            child: Text("${churchList[index].bio ?? ""}",
+                            SizedBox(
+                              height: 5,
+                            ),
+                            Text(
+                                "${churchList[index].firstname ?? ""}",
+                                maxLines: 2,
+                                textAlign:
+                                TextAlign.center,
+                                style: myStyle(18,yellowDark,FontWeight.w700)
+                            ),
+                            Text(
+                                "${churchList[index].bio ?? ""}",
                                 maxLines: 1,
-                                textAlign: TextAlign.center,
-                                overflow: TextOverflow.ellipsis,
-                                style: myStyle(
-                                    tSmall, blackDark, FontWeight.bold)),
-                          ),
-                        ],
+                                textAlign:
+                                TextAlign.center,
+                                style: myStyle(17,grayClr,FontWeight.w800 )
+                            ),
+                          ],
+                        ),
                       ),
                     ),
                   );
