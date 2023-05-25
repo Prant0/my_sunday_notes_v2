@@ -7,9 +7,9 @@ import 'package:mysundaynotes/widget/widget.dart';
 
 class CategoriesShow extends StatelessWidget {
   List<CategoryModel> categories;
-  int id;
+  int id;bool? isOld;
 
-  CategoriesShow({Key? key,required this.id, required this.categories}) : super(key: key);
+  CategoriesShow({Key? key,required this.id, required this.categories,this.isOld}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -55,16 +55,42 @@ class CategoriesShow extends StatelessWidget {
                     width: double.infinity,
                     child: Text(
                       "${categories[index].title}",
-                      style: myStyle(22, yellowDark, FontWeight.w900),
+                      style: TextStyle(
+                          inherit: true,
+                          fontSize: 22.0,
+                          fontWeight: FontWeight.w800,
+                          color: yellowDark,
+                          shadows: [
+                            Shadow( // bottomLeft
+                                offset: Offset(-1.5, -1.5),
+                                color: blackLight
+                            ),
+                            Shadow( // bottomRight
+                                offset: Offset(1.5, -1.5),
+                                color: blackLight
+                            ),
+                            Shadow( // topRight
+                                offset: Offset(1.5, 1.5),
+                                color: blackLight
+                            ),
+                            Shadow( // topLeft
+                                offset: Offset(-1.5, 1.5),
+                                color: blackLight
+                            ),
+                          ]
+                      ),
                     ),
                     decoration: BoxDecoration(
                         color: blackLight,
                         borderRadius: BorderRadius.circular(16),
                         image: DecorationImage(
-                            image: NetworkImage(""), fit: BoxFit.cover)),
+                            image: NetworkImage(isOld==true?"${oldList[index %
+                                oldList.length]}" :"${newList[index %
+                                newList.length]}"), fit: BoxFit.cover)),
                   ),
                 );
               }),
         ));
   }
 }
+//

@@ -229,14 +229,27 @@ class _AuthorSodPageState extends State<AuthorSodPage> {
                         height: 250,
                         width: double.infinity,
 
-                        child: WebView(
-                          initialUrl: Uri.dataFromString('<html><body><iframe width="100%" height="100%" frameborder="0" allowfullscreen src="${location}"></iframe></body></html>', mimeType: 'text/html',).toString(),
-                          javascriptMode: JavascriptMode.unrestricted,
-                          zoomEnabled: false,
-                          gestureNavigationEnabled: true,
+                        child: Stack(
+                          children: [
+                            WebView(
+                              initialUrl: Uri.dataFromString('<html><body><iframe width="100%" height="100%" frameborder="0" allowfullscreen src="${location}"></iframe></body></html>', mimeType: 'text/html',).toString(),
+                              javascriptMode: JavascriptMode.unrestricted,
+                              zoomEnabled: false,
+                              gestureNavigationEnabled: true,
 
+                            ),
+                            Positioned(child: InkWell(
+                              onTap: (){
+                                print("ssssssssssssssssssssssssssss");
+                                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>WebViewActivity(
+                                    Uri.dataFromString('<html><body><iframe width="100%" height="100%" frameborder="0" allowfullscreen src="${location}"></iframe></body></html>', mimeType: 'text/html',).toString()
+                                )));
+                              },
+                            ))
+                          ],
                         )
                     ),
+
 
                     ListView.builder(
                         physics: NeverScrollableScrollPhysics(),

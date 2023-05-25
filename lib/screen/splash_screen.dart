@@ -13,24 +13,32 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen> {
   String notificationAlert = "";
+
   loadDrawer() async {
-    await Provider.of<HomeProvider>(context, listen: false).getSODData(
-      15,
-    );
-    await Provider.of<HomeProvider>(context, listen: false).getAllChurchData(
-      20,
-    );
-    await Provider.of<HomeProvider>(context, listen: false)
-        .loadDrawerCategories();
-    await Provider.of<HomeProvider>(context, listen: false).loadCategories();
+    try{
+      await Provider.of<HomeProvider>(context, listen: false)
+          .getSODData(
+        15,
+      )
+          .then((value) async {
+        await Provider.of<HomeProvider>(context, listen: false).getAllChurchData(
+          20,
+        );
+      }).then((value) async {
+        await Provider.of<HomeProvider>(context, listen: false)
+            .loadDrawerCategories();
+      }).then((value) async {
+        await Provider.of<HomeProvider>(context, listen: false).loadCategories();
+      }).then((value) => Navigator.of(context).pushReplacement(
+          MaterialPageRoute(builder: (context) => NavBarPage())));
+    }catch(e){
+      showInToast("Check your Internet connection");
+    }
   }
 
   @override
   void initState() {
     loadDrawer();
-    Future.delayed(Duration(seconds: 3), () {
-       Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>NavBarPage()));
-    });
   }
 
   @override
@@ -38,8 +46,6 @@ class _SplashScreenState extends State<SplashScreen> {
     return SafeArea(
       child: Scaffold(
         backgroundColor: blackDark,
-
-
         body: Center(
           child: Container(
             margin: EdgeInsets.all(20),
@@ -47,7 +53,6 @@ class _SplashScreenState extends State<SplashScreen> {
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-
                 SizedBox(
                   height: 30,
                 ),
@@ -55,11 +60,9 @@ class _SplashScreenState extends State<SplashScreen> {
                   "assets/app_logo.png",
                   height: 180,
                 ),
-
                 SizedBox(
-                  height:20,
+                  height: 20,
                 ),
-
                 MaterialButton(
                   onPressed: () {
                     Navigator.of(context).pushReplacement(
@@ -67,10 +70,8 @@ class _SplashScreenState extends State<SplashScreen> {
                   },
                   child: Text(
                     "enter",
-                    style: myStyle(25,yellowDark,FontWeight.w800),
+                    style: myStyle(25, yellowDark, FontWeight.w800),
                   ),
-
-
                 )
               ],
             ),

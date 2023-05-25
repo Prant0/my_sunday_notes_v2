@@ -41,7 +41,7 @@ class _CustomDrawerState extends State<CustomDrawer> {
     'Hebrews',
     'James',
     'Peter',
-    '1-2-3 John',
+    //'1-2-3 John',
     'Jude',
     'Revelation'
   ];
@@ -236,33 +236,22 @@ class _CustomDrawerState extends State<CustomDrawer> {
       child: Scaffold(
         body: SingleChildScrollView(
           child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Container(
-                height: 200,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    color: yellowDark,
-                    image: DecorationImage(
-                        image: AssetImage(
-                          "assets/app_logo.png",
-                        ),
-                        fit: BoxFit.cover)),
 
-                /*  child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: [
-                    Text("MySundayNotes", style: TextStyle(
-                        color: blackDark,
-                        fontSize: 24
-                    ),),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text("App Version 1.0.0")
-                  ],
-                ),*/
+              Padding(
+                padding: const EdgeInsets.only(left: 8),
+                child: IconButton(onPressed: (){Navigator.of(context).pop();}, icon:Icon(Icons.menu,color: yellowDark,size: 35,)),
               ),
+
+             Container(margin: EdgeInsets.only(top: 15),
+               width: double.infinity,
+               padding: EdgeInsets.symmetric(vertical: 16),
+               color: yellowDark,
+               child:  Text("          MySundayNotes",style: myStyle(24,blackLight,FontWeight.w800),),
+             ),
+              SizedBox(height: 20,),
+
               ListTile(
                 onTap: () {
                   Navigator.pop(context);

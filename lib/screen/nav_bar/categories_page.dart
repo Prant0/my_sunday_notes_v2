@@ -41,7 +41,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
     'Hebrews',
     'James',
     'Peter',
-    '1-2-3 John',
+    //'1-2-3 John',
     'Jude',
     'Revelation'
   ];
@@ -49,9 +49,13 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
   List<CategoryModel> newCategories = [];
   List<CategoryModel> oldCategories = [];
+
+
   updateCategories() {
     allCategories.sort((a, b) {
-      return a.title.toLowerCase().compareTo(b.title.toLowerCase());
+
+      return a.title.replaceAll(new RegExp(r"\d"), "").trim().toLowerCase().compareTo(b.title.replaceAll(new RegExp(r"\d"), "").trim().toLowerCase());
+     //  a.title.toLowerCase().compareTo(b.title.toLowerCase());
     });
 
 
@@ -74,6 +78,8 @@ class _CategoriesPageState extends State<CategoriesPage> {
 
 
   }
+
+
 
   @override
   void initState() {
@@ -112,7 +118,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
         ),
         centerTitle: true,
         title: Text(
-          "SOD Studys",
+          widget.id==1?"Bible Scripture": "SOD Studies",
           style: myStyle(25,yellowDark,FontWeight.w800),
         ),
       ),
@@ -123,7 +129,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
           children: [
             InkWell(
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesShow(categories: oldCategories,id: widget.id)));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesShow(categories: oldCategories,id: widget.id,isOld: true,)));
               },
               child: Stack(
                 children: [
@@ -149,7 +155,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                               color: blackLight
                           ),
                           Shadow( // topRight
-                              offset: Offset(1.5, 5.5),
+                              offset: Offset(1.5, 1.5),
                               color: blackLight
                           ),
                           Shadow( // topLeft
@@ -175,7 +181,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
             SizedBox(height: 30,),
             InkWell(
               onTap: (){
-                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesShow(categories: newCategories,id: widget.id,)));
+                Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesShow(categories: newCategories,id: widget.id,isOld: false,)));
               },
               child: Stack(
                 children: [
@@ -201,7 +207,7 @@ class _CategoriesPageState extends State<CategoriesPage> {
                                 color: blackLight
                             ),
                             Shadow( // topRight
-                                offset: Offset(1.5, 5.5),
+                                offset: Offset(1.5, 1.5),
                                 color: blackLight
                             ),
                             Shadow( // topLeft

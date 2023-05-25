@@ -102,7 +102,7 @@ class _FindChurchPageState extends State<FindChurchPage> {
                               ),
                             ),
                             SizedBox(
-                              height: 5,
+                              height: 10,
                             ),
                             Text(
                                 "${churchList[index].firstname ?? ""}",
@@ -111,13 +111,13 @@ class _FindChurchPageState extends State<FindChurchPage> {
                                 TextAlign.center,
                                 style: myStyle(18,yellowDark,FontWeight.w700)
                             ),
-                            Text(
+                           /* Text(
                                 "${churchList[index].bio ?? ""}",
                                 maxLines: 1,
                                 textAlign:
                                 TextAlign.center,
                                 style: myStyle(17,grayClr,FontWeight.w800 )
-                            ),
+                            ),*/
                           ],
                         ),
                       ),

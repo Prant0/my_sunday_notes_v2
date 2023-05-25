@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:mysundaynotes/provider/home_provider.dart';
 import 'package:mysundaynotes/screen/author_sod_page.dart';
 import 'package:mysundaynotes/screen/drawer/custom_drawer.dart';
+import 'package:mysundaynotes/screen/nav_bar/categories_page.dart';
 import 'package:mysundaynotes/screen/nav_bar/find_church.dart';
 import 'package:mysundaynotes/screen/sod_details_page.dart';
 import 'package:mysundaynotes/widget/widget.dart';
@@ -44,10 +45,6 @@ class _HomePageState extends State<HomePage> {
 
   @override
   void initState() {
-    // TODO: implement initState
-    //loadSODData();
-    // loadAllChurchData();
-
     controller.addListener(() {
       if (controller.position.maxScrollExtent == controller.offset) {
         Provider.of<HomeProvider>(context, listen: false).incrementSOD();
@@ -136,27 +133,78 @@ class _HomePageState extends State<HomePage> {
                         color: yellowDark,
                         thickness: 1.5,
                       ),
-                      Container(
-                        alignment: Alignment.center,
-                        width: double.infinity,
-                        child: RichText(
-                          text: TextSpan(
-                            text: 'bible ',
-                            style: myStyle(30, blackDark, FontWeight.bold),
-                            children: <TextSpan>[
-                              TextSpan(
-                                  text: 'Scriptures',
-                                  style: myStyle(30, blackLight)),
-                            ],
-                          ),
-                        ),
-                        height: 90,
-                        decoration: BoxDecoration(
-                          image: DecorationImage(
-                              image: AssetImage(
-                                "assets/homebg.png",
+                      InkWell(
+                        onTap: (){
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context)=>CategoriesPage(id: 1)));
+                        },
+                        child: Container(
+                          alignment: Alignment.center,
+                          width: double.infinity,
+                          child: RichText(
+                            text: TextSpan(
+                              text: 'bible ',
+                              style: TextStyle(
+                                  inherit: true,
+                                  fontSize: 25.0,
+                                  fontWeight: FontWeight.w800,
+                                  color: yellowDark,
+                                  shadows: [
+                                    Shadow( // bottomLeft
+                                        offset: Offset(-1.5, -1.5),
+                                        color: blackLight
+                                    ),
+                                    Shadow( // bottomRight
+                                        offset: Offset(1.5, -1.5),
+                                        color: blackLight
+                                    ),
+                                    Shadow( // topRight
+                                        offset: Offset(1.5, 1.5),
+                                        color: blackLight
+                                    ),
+                                    Shadow( // topLeft
+                                        offset: Offset(-1.5, 1.5),
+                                        color: blackLight
+                                    ),
+                                  ]
                               ),
-                              fit: BoxFit.cover),
+                              children: <TextSpan>[
+                                TextSpan(
+                                    text: 'Scriptures',
+                                style: TextStyle(
+                                inherit: true,
+                                fontSize: 25.0,
+                                fontWeight: FontWeight.w800,
+                                color: yellowDark,
+                                shadows: [
+                                  Shadow( // bottomLeft
+                                      offset: Offset(-1.5, -1.5),
+                                      color: blackLight
+                                  ),
+                                  Shadow( // bottomRight
+                                      offset: Offset(1.5, -1.5),
+                                      color: blackLight
+                                  ),
+                                  Shadow( // topRight
+                                      offset: Offset(1.5, 1.5),
+                                      color: blackLight
+                                  ),
+                                  Shadow( // topLeft
+                                      offset: Offset(-1.5, 1.5),
+                                      color: blackLight
+                                  ),
+                                ]
+                            ),),
+                              ],
+                            ),
+                          ),
+                          height: 90,
+                          decoration: BoxDecoration(
+                            image: DecorationImage(
+                                image: AssetImage(
+                                  "assets/homebg.png",
+                                ),
+                                fit: BoxFit.cover),
+                          ),
                         ),
                       ),
                       churchList.isNotEmpty
@@ -230,7 +278,7 @@ class _HomePageState extends State<HomePage> {
                                                             ),
                                                           ),
                                                           SizedBox(
-                                                            height: 5,
+                                                            height: 10,
                                                           ),
                                                           Text(
                                                             "${churchList[index].firstname ?? ""}",
@@ -239,13 +287,13 @@ class _HomePageState extends State<HomePage> {
                                                                 TextAlign.center,
                                                             style: myStyle(16,yellowDark,FontWeight.w700)
                                                           ),
-                                                          Text(
+                                                         /* Text(
                                                             "${churchList[index].bio ?? ""}",
                                                             maxLines: 2,
                                                             textAlign:
                                                                 TextAlign.center,
                                                          style: myStyle(16,grayClr, )
-                                                          ),
+                                                          ),*/
                                                         ],
                                                       ),
                                                     ),
